@@ -1,6 +1,6 @@
 package com.NexusPoint.model;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.sql.Blob;
 
 public class EMPLOYEE {
@@ -8,7 +8,7 @@ public class EMPLOYEE {
     private String Fname;
     private String Mname;
     private String Lname;
-    private LocalDate empDate;
+    private Date empBDate;
     private String HouseNo;
     private String Road;
     private String SubDistrict;
@@ -21,7 +21,7 @@ public class EMPLOYEE {
     private String empRole;
     private String empIDPass;
     private Blob empPhoto;
-    private String depID;
+    private String depID; // FK
 
     public String getEmpID() {
         return this.empID;
@@ -55,12 +55,12 @@ public class EMPLOYEE {
         this.Lname = Lname;
     }
 
-    public LocalDate getEmpDate() {
-        return this.empDate;
+    public Date getEmpBDate() {
+        return this.empBDate;
     }
 
-    public void setEmpDate(LocalDate empDate) {
-        this.empDate = empDate;
+    public void setEmpBDate(Date empBDate) {
+        this.empBDate = empBDate;
     }
 
     public String getHouseNo() {
