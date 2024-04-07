@@ -32,3 +32,22 @@ img {
     width: 250px;
     height: auto;
 }
+
+.layoutforweb {
+    display: flex;
+}
+
+.wide1 {
+    flex: 0.01;
+    padding: 20px;
+}
+
+.wide2 {
+    flex: 0.3;
+    padding: 20px;
+}
+
+.wide3 {
+    flex: 0.5;
+    padding: 20px;
+}
