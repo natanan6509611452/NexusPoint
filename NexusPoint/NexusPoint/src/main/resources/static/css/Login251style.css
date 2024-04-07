@@ -24,30 +24,45 @@
 }
 
 body {
-    font-family: Kanit-Medium;
-    background: linear-gradient(to right, #FEFAE0 40%, #CCD5AE 30%);
-}
-
-img {
-    width: 250px;
-    height: auto;
-}
-
-.layoutforweb {
+    padding: 0%;
+    margin: 0%;
+    width: 100%;
+    height: 100vh;
+    background: #FEFAE0;
+    background-repeat: no-repeat;
+    background-position: -600px -510px;
+    background-size: 3546px 2462px;
     display: flex;
 }
 
-.wide1 {
-    flex: 0.01;
-    padding: 20px;
+img {
+    margin-top: 250px;
+    max-width: 250px;
+    max-height: 250px;
 }
 
-.wide2 {
-    flex: 0.3;
-    padding: 20px;
+.form-group {
+    width: 896px;
+    height: 110vh;
+    margin: -1%;
+    padding: 1%;
+    background: #CCD5AE;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.wide3 {
-    flex: 0.5;
-    padding: 20px;
+.form-group2 {
+    width: 896px;
+    height: 110vh;
+    margin: -1%;
+    padding: 1%;
+    background: #FEFAE0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-field {
+    margin-top: 4vh;
 }
