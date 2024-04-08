@@ -10,11 +10,12 @@ import java.util.List;
 @Repository
 public class JdbcEmployeeRepository implements employeeInterface{
     @AutoWired
+    private JdbcTemplate jdbcTemplate;
     public EMPLOYEE showInfo(){
     }
 
     public void editUserInfo(EMPLOYEE newInfo){
-
+        
     }
 
     public List<ITEM> itemStrSearch(String searchName){
@@ -22,7 +23,7 @@ public class JdbcEmployeeRepository implements employeeInterface{
     }
 
     public List<ITEM> itemFilter(Boolean depletable, String Dep, String amount){
-
+        
     }
 
     public List<empBorrowList> checkBorrowLists(){
