@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public class JdbcEmployeeRepository implements employeeInterface{
+    @AutoWired
     public EMPLOYEE showInfo(){
     }
 
@@ -37,6 +38,5 @@ public class JdbcEmployeeRepository implements employeeInterface{
     }
 
     public void logout(){
-        
     }
 }
