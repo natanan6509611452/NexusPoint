@@ -10,4 +10,6 @@ public interface employeeInterface {
     public List<ITEM> itemFilter(Boolean depletable, String Dep, String amount);
     public List<empBorrowList> checkBorrowLists();
     public List<ITEM> showAllItem();
+    public String login(String empID);
+    public void logout();
 }
