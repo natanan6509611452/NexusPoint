@@ -32,27 +32,22 @@ body {
     background-repeat: no-repeat;
     background-position: -600px -510px;
     background-size: 3546px 2462px;
-    display: flex;*/
+    display: flex;
 }
 
 img {
-    margin-top: 250px;
+    margin-top: 50px;
     max-width: 250px;
     max-height: 250px;
 }
 
-.form-group {
-    height: 110vh;
-    margin: -1%;
-    padding: 1%;
-    background: #CCD5AE;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.logo-img {
+    max-width: 100px;
+    max-height: 100px;
 }
 
-.form-group2 {
-    width: 50%;
+.form-group {
+    width: 896px;
     height: 110vh;
     margin: -1%;
     padding: 1%;
@@ -62,6 +57,38 @@ img {
     align-items: center;
 }
 
-.form-field {
-    margin-top: 4vh;
+.form-group2 {
+    width: 896px;
+    height: 110vh;
+    margin: -1%;
+    padding: 1%;
+    background: #CCD5AE;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    padding: 10px;
+    width: 708px;
+    height: 260px;
+
+    margin-bottom: 5px;
+    display: flex;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: 25% 25% 25% 25%;
+    row-gap: 30px;
+    font-family: Kanit-Medium;
+}
+
+.form-field1 {
+    margin-top: 20vh;
+}
+
+.form-field2 {
+    margin-top: 200h;
+}
+
+.form-field3 {
+    margin-top: 5h;
 }
