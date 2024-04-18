@@ -1,8 +1,14 @@
 package com.NexusPoint.model;
 
+import com.azure.core.annotation.Get;
+import jakarta.websocket.Decoder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.sql.Date;
 import java.sql.Blob;
-
+@Data
 public class EMPLOYEE {
     private String empID;
     private String Fname;
@@ -15,15 +21,15 @@ public class EMPLOYEE {
     private String District;
     private String Province;
     private String Country;
-    private int Postcode;
+    private String Postcode;
     private String empTel;
     private String empMail;
     private String empRole;
     private String empIDPass;
-    private Blob empPhoto;
+    private String empPhoto;
     private String depID; // FK
 
-    public String getEmpID() {
+   /* public String getEmpID() {
         return this.empID;
     }
 
@@ -165,6 +171,7 @@ public class EMPLOYEE {
 
     public void setDepID(String depID) {
         this.depID = depID;
-    }
+    }*/
+
 
 }

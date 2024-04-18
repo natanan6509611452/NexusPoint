@@ -1,3 +1,4 @@
+/*
 package com.NexusPoint.repository;
 
 import th.ac.tu.cs.subjectRequestForm.model.*;
@@ -17,3 +18,4 @@ public interface UserRepository {
     public List<otherData> getOtherDataById(String userId);
     public List<regCrossData> getRegCrossDataById(String userId);
 }
+*/

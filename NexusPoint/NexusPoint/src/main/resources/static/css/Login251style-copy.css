@@ -1,0 +1,42 @@
+@font-face{
+    font-family: Kanit-Black;
+    src: url(../font/Kanit/Kanit-Black.ttf);
+}
+
+@font-face{
+    font-family: Kanit-Bold;
+    src: url(../font/Kanit/Kanit-Bold.ttf);
+}
+
+@font-face{
+    font-family: Kanit-Medium;
+    src: url(../font/Kanit/Kanit-Medium.ttf);
+}
+
+@font-face{
+    font-family: Kanit-Regular;
+    src: url(../font/Kanit/Kanit-Regular.ttf);
+}
+
+@font-face{
+    font-family: Kanit-Light;
+    src: url(../font/Kanit/Kanit-Light.ttf);
+}
+
+
+img {
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.btn,
+.btn:active {
+    background-color: #D4A373 !important;
+    font-family: Kanit-Bold !important;
+    color: black !important;
+    border: none;
+}
+
+.btn:hover {
+    background-color: #DF9044 !important;
+}

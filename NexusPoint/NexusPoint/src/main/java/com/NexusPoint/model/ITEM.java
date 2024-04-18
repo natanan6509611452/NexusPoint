@@ -1,7 +1,11 @@
 package com.NexusPoint.model;
 
+import lombok.Data;
+import lombok.Getter;
+
 import java.time.LocalDate;
 
+@Data
 public class ITEM {
     private String itemID;
     private String itemName;
@@ -12,7 +16,7 @@ public class ITEM {
     private String empID; // FK
     private String depID; // FK
 
-    public String getItemID() {
+    /*public String getItemID() {
         return this.itemID;
     }
 
@@ -74,6 +78,6 @@ public class ITEM {
 
     public void setDepID(String depID) {
         this.depID = depID;
-    }
+    }*/
 
 }

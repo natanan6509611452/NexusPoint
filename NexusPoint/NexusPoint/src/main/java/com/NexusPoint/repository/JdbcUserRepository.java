@@ -1,3 +1,4 @@
+/*
 package com.NexusPoint.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,10 @@ public class JdbcUserRepository implements UserRepository {
     private JdbcTemplate jdbcTemplate;
 
     public void saveAddDrop(addDropData addDropData){
-        /*String sql = "INSERT INTO UserInformation (date ,studentFirstName, studentLastName, studentId,studentYear) VALUES (?,?,?, ?, ?)";
-        jdbcTemplate.update(sql,user.getDate(), user.getStudentFirstName(), user.getLastname(), user.getStudentId(),user.getStudentYear());*/
+        */
+/*String sql = "INSERT INTO UserInformation (date ,studentFirstName, studentLastName, studentId,studentYear) VALUES (?,?,?, ?, ?)";
+        jdbcTemplate.update(sql,user.getDate(), user.getStudentFirstName(), user.getLastname(), user.getStudentId(),user.getStudentYear());*//*
+
         String sql = "INSERT INTO addDropForms (status,Date, Prefix, FirstName, LastName, StudentID, StudentYear," +
                 "    StudentField, Advisor, AddressNumber, Moo, Tumbol, Amphur, Province, PostalCode," +
                 "    MobilePhone, Phone, Cause," +
@@ -233,8 +236,10 @@ public class JdbcUserRepository implements UserRepository {
         );
     }
     public void saveDropW(DropWData dropWData){
-        /*String sql = "INSERT INTO UserInformation (date ,studentFirstName, studentLastName, studentId,studentYear) VALUES (?,?,?, ?, ?)";
-        jdbcTemplate.update(sql,user.getDate(), user.getStudentFirstName(), user.getLastname(), user.getStudentId(),user.getStudentYear());*/
+        */
+/*String sql = "INSERT INTO UserInformation (date ,studentFirstName, studentLastName, studentId,studentYear) VALUES (?,?,?, ?, ?)";
+        jdbcTemplate.update(sql,user.getDate(), user.getStudentFirstName(), user.getLastname(), user.getStudentId(),user.getStudentYear());*//*
+
         String sql = "INSERT INTO DropWForms (status,Date, Prefix, FirstName, LastName, StudentID, StudentYear," +
                 "    StudentField, Advisor, AddressNumber, Moo, Tumbol, Amphur, Province, PostalCode," +
                 "    MobilePhone, Phone, Cause,gpax, " +
@@ -355,8 +360,10 @@ public class JdbcUserRepository implements UserRepository {
     }
     public void saveRegCross(regCrossData regCrossData){
 
-        /*String sql = "INSERT INTO UserInformation (date ,studentFirstName, studentLastName, studentId,studentYear) VALUES (?,?,?, ?, ?)";
-        jdbcTemplate.update(sql,user.getDate(), user.getStudentFirstName(), user.getLastname(), user.getStudentId(),user.getStudentYear());*/
+        */
+/*String sql = "INSERT INTO UserInformation (date ,studentFirstName, studentLastName, studentId,studentYear) VALUES (?,?,?, ?, ?)";
+        jdbcTemplate.update(sql,user.getDate(), user.getStudentFirstName(), user.getLastname(), user.getStudentId(),user.getStudentYear());*//*
+
         String sql = "INSERT INTO regCrossForms (status,Date, Prefix, FirstName, LastName, StudentID, StudentYear," +
                 "    StudentField, Advisor, AddressNumber, Moo, Tumbol, Amphur, Province, PostalCode," +
                 "    MobilePhone, Phone,reg,code,section,semester,year,teacher,reason  "
@@ -392,8 +399,10 @@ public class JdbcUserRepository implements UserRepository {
         );
     }
     public void saveOther(otherData dropOutData){
-        /*String sql = "INSERT INTO UserInformation (date ,studentFirstName, studentLastName, studentId,studentYear) VALUES (?,?,?, ?, ?)";
-        jdbcTemplate.update(sql,user.getDate(), user.getStudentFirstName(), user.getLastname(), user.getStudentId(),user.getStudentYear());*/
+        */
+/*String sql = "INSERT INTO UserInformation (date ,studentFirstName, studentLastName, studentId,studentYear) VALUES (?,?,?, ?, ?)";
+        jdbcTemplate.update(sql,user.getDate(), user.getStudentFirstName(), user.getLastname(), user.getStudentId(),user.getStudentYear());*//*
+
         String sql = "INSERT INTO otherForms (status,Date, Prefix, FirstName, LastName, StudentID, StudentYear," +
                 "    StudentField, Advisor, AddressNumber, Moo, Tumbol, Amphur, Province, PostalCode," +
                 "    MobilePhone, Phone,reason  "
@@ -419,7 +428,8 @@ public class JdbcUserRepository implements UserRepository {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(addDropData.class));
     }
 
-    /*public void saveAddCourses(addDropData addDropData) {
+    */
+/*public void saveAddCourses(addDropData addDropData) {
         String sql = "INSERT INTO UserInformation (AddCourse1Code, AddCourse1Name,AddCourse1Section,AddCourse1DayAndTime, AddCourse1Credits, AddCourse1InstructorName, AddCourse1InstructorPermission) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
                 addDropData.getAddCourse1Code(),
@@ -433,7 +443,8 @@ public class JdbcUserRepository implements UserRepository {
 
         // Repeat the above code for AddCourse2, AddCourse3, and so on
         // You may need a loop to do this dynamically
-    }*/
+    }*//*
+
 
     public List<addDropData> getAddDropDataById(String userId) {
         String sql = "SELECT * FROM addDropForms WHERE studentID = ?";
@@ -460,3 +471,4 @@ public class JdbcUserRepository implements UserRepository {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(regCrossData.class), userId);
     }
 }
+*/
