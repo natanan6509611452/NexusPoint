@@ -1,11 +1,10 @@
 package com.NexusPoint.model;
 
-public class empBorrowList extends ITEM {
-    private int penaltry;
-    public int getPenaltry() {
-        return this.penaltry;
-    }
-    public void setPenaltry(int penaltry) {
-        this.penaltry = penaltry;
-    }
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class empBorrowList extends BORROW_ITEM {
+    private int penaltyAmount;
 }

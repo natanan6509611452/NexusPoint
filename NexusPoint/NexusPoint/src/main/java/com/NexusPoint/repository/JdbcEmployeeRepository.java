@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 import com.NexusPoint.model.*;
 
 import java.util.List;
+
+import javax.management.Query;
+
 import java.util.ArrayList;
 
 
@@ -40,8 +43,9 @@ public class JdbcEmployeeRepository implements employeeInterface{
         return itemList;
     }
 
-    public List<empBorrowList> checkBorrowLists(){
-
+    public List<empBorrowList> checkBorrowLists(String empID) {
+        String queryStr = "SELECT itemID, BorrowStatus, DATEDIFF(returnDate, CURDATE()) * 35 AS penaltyAmount FROM BORROW_ITEM WHERE empID = ?";
+        return jdbcTemplate.query(queryStr, BeanPropertyRowMapper.newInstance(empBorrowList.class), empID);
     }
 
     public List<ITEM> showAllItem(){
