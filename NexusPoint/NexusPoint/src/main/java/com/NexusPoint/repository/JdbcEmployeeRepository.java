@@ -18,7 +18,42 @@ public class JdbcEmployeeRepository implements employeeInterface{
     private JdbcTemplate jdbcTemplate;
 
     public EMPLOYEE showInfo(){
+        Connection conn = getDatabaseConnection();
+        EMPLOYEE employeeInfo = new EMPLOYEE();
+        String empID = this.getEmpID();
+        PreparedStatement statement = conn.prepareStatement("SELECT * FROM EMPLOYEE WHERE empID = ?");
+        statement.setString(1, empID);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            employeeInfo.setEmpID(resultSet.getString("empID"));
+            employeeInfo.setFname(resultSet.getString("Fname"));
+            employeeInfo.setMname(resultSet.getString("Mname"));
+            employeeInfo.setLname(resultSet.getString("Lname"));
+            employeeInfo.setEmpBDate(resultSet.getDate("empBDate"));
+            employeeInfo.setHouseNo(resultSet.getString("HouseNo"));
+            employeeInfo.setRoad(resultSet.getString("Road"));
+            employeeInfo.setSubDistrict(resultSet.getString("SubDistrict"));
+            employeeInfo.setDistrict(resultSet.getString("District"));
+            employeeInfo.setProvince(resultSet.getString("Province"));
+            employeeInfo.setCountry(resultSet.getString("Country"));
+            employeeInfo.setPostcode(resultSet.getInt("Postcode"));
+            employeeInfo.setEmpTel(resultSet.getString("empTel"));
+            employeeInfo.setEmpMail(resultSet.getString("empMail"));
+            employeeInfo.setEmpRole(resultSet.getString("empRole"));
+            employeeInfo.setDepID(resultSet.getString("depID"));
+        }
+        console.log("Employee ID: " + empID);
+        console.log("First Name: " + employeeInfo.getFname());
+        console.log("Middle Name: " + employeeInfo.getMname());
+        console.log("Last Name: " + employeeInfo.getLname());
+        console.log("Birth Date: " + employeeInfo.getEmpBDate());
+        console.log("Address: " + employeeInfo.getHouseNo() + " " + employeeInfo.getRoad() + ", " + employeeInfo.getSubDistrict() + ", " + employeeInfo.getDistrict() + ", " + employeeInfo.getProvince() + ", " + employeeInfo.getCountry() + " " + employeeInfo.getPostcode());
+        console.log("Phone NO.: " + employeeInfo.getEmpTel());
+        console.log("Email: " + employeeInfo.getEmpMail());
+        console.log("Role: " + employeeInfo.getEmpRole());
+        console.log("Department ID: " + employeeInfo.getDepID());
 
+        return employeeInfo;
     }
 
     public void editUserInfo(EMPLOYEE newInfo){
