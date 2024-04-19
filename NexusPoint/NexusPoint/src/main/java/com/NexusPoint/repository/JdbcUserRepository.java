@@ -1,4 +1,5 @@
-/*package com.NexusPoint.repository;
+/*
+package com.NexusPoint.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -354,7 +355,6 @@ public class JdbcUserRepository implements UserRepository {
         );
     }
     public void saveRegCross(regCrossData regCrossData){
-
         /*String sql = "INSERT INTO UserInformation (date ,studentFirstName, studentLastName, studentId,studentYear) VALUES (?,?,?, ?, ?)";
         jdbcTemplate.update(sql,user.getDate(), user.getStudentFirstName(), user.getLastname(), user.getStudentId(),user.getStudentYear());
         String sql = "INSERT INTO regCrossForms (status,Date, Prefix, FirstName, LastName, StudentID, StudentYear," +
@@ -419,7 +419,8 @@ public class JdbcUserRepository implements UserRepository {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(addDropData.class));
     }
 
-    /*public void saveAddCourses(addDropData addDropData) {
+    */
+/*public void saveAddCourses(addDropData addDropData) {
         String sql = "INSERT INTO UserInformation (AddCourse1Code, AddCourse1Name,AddCourse1Section,AddCourse1DayAndTime, AddCourse1Credits, AddCourse1InstructorName, AddCourse1InstructorPermission) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
                 addDropData.getAddCourse1Code(),

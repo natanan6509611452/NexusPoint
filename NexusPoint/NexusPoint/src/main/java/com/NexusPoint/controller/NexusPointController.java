@@ -1,26 +1,71 @@
-/*package com.NexusPoint.controller;
+package com.NexusPoint.controller;
 
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
-import th.ac.tu.cs.subjectRequestForm.model.*;
-import th.ac.tu.cs.subjectRequestForm.repository.UserRepository;
+import com.NexusPoint.model.*;
+import com.NexusPoint.repository.employeeRepository;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.sql.SQLException;
 import java.util.List;
+
+import static ch.qos.logback.core.encoder.ByteArrayUtil.hexStringToByteArray;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
-@RequestMapping(value={"users"})
-@Setter
-@Getter
-@Data
-public class UserController {
+@RequestMapping(value={"employee"})
+public class NexusPointController {
     @Autowired
-    private UserRepository userDao;
+    private employeeRepository empDao;
 
-    @RequestMapping(value = "/addDrop", method = RequestMethod.POST)
+    @RequestMapping(value = "/showInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<EMPLOYEE> showInfo(@RequestParam String id) {
+        try {
+            EMPLOYEE data = empDao.showInfo(id);
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<EMPLOYEE> login(@RequestBody USER user) {
+        try {
+            EMPLOYEE data = empDao.authenticate(user);
+            /*String a = data.getEmpPhoto();
+            byte[] byteArray = hexStringToByteArray(a);
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(byteArray);
+            File outputFile = new File("C:/Users/penci/Downloads/beep.jpg");
+            BufferedImage image = ImageIO.read(inputStream);
+            ImageIO.write(image, "jpg", outputFile);*/
+            if (data == null) {
+                return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+            }
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/insert")
+    public void insert() throws SQLException {
+        empDao.insertPhoto();
+    }
+
+
+   /* @RequestMapping(value = "/addDrop", method = RequestMethod.POST)
     public void addUser(@RequestBody addDropData addDropData) {
         userDao.saveAddDrop(addDropData);
     }
@@ -107,6 +152,6 @@ public class UserController {
             System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-    }
+    }*/
     
-}*/
+}
