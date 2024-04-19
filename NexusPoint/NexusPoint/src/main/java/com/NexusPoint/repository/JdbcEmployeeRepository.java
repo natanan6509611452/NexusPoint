@@ -4,6 +4,7 @@ import com.NexusPoint.model.BORROW_ITEM;
 import com.NexusPoint.model.EMPLOYEE;
 import com.NexusPoint.model.ITEM;
 import com.NexusPoint.model.USER;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -72,7 +73,7 @@ public class JdbcEmployeeRepository implements employeeRepository {
         return jdbc.query(sql, new BeanPropertyRowMapper<>(ITEM.class), searchName);
     }
 
-    @Override
+    /*@Override
     public List<ITEM> itemFilter(Boolean depletable, String Dep, String amount) {
         int isDepletable = depletable ? 1 : 0;
         String sql = "SELECT * FROM BORROW_ITEM WHERE itemType = ?, depID = ?, itemAmount = ?";
@@ -83,7 +84,30 @@ public class JdbcEmployeeRepository implements employeeRepository {
     public List<BORROW_ITEM> checkBorrowLists() {
         String sql = "SELECT * FROM BORROW_ITEM";
         return jdbc.query(sql, new BeanPropertyRowMapper<>(BORROW_ITEM.class));
+    }*/
+  
+    @Override
+    public List<ITEM> itemFilter(Boolean depletable, String Dep, String amount){
+        List<ITEM> itemList = new ArrayList<>();
+        String QueryStr = "SELECT itemName, ITEM.itemAmount - COALESCE(SUM(BORROW.BorrowAmount), 0) AS availableAmount ";
+        if (depletable) {
+            QueryStr += "FROM Depletable JOIN Borrow ON Depletable.itemID = Borrow.itemID WHERE itemType = 1 ";
+        } else {
+            QueryStr += "FROM Indepletable JOIN Borrow ON Indepletable.itemID = Borrow.itemID WHERE itemType = 0 ";
+        }
+        if (amount != null && !amount.isEmpty() && Integer.parseInt(amount) >= 0) {
+            QueryStr += "AND (availableAmount >= " + amount + ")";
+        }
+        itemList = jdbcTemplate.query(QueryStr, new BeanPropertyRowMapper<>(ITEM.class));
+        return itemList;
     }
+
+    @Override
+    public List<empBorrowList> checkBorrowLists(String empID) {
+        String queryStr = "SELECT itemID, BorrowStatus, DATEDIFF(returnDate, CURDATE()) * 35 AS penaltyAmount FROM BORROW_ITEM WHERE empID = ?";
+        return jdbcTemplate.query(queryStr, BeanPropertyRowMapper.newInstance(empBorrowList.class), empID);
+    }
+
 
     @Override
     public List<ITEM> showAllItem() {
@@ -106,5 +130,6 @@ public class JdbcEmployeeRepository implements employeeRepository {
         String sql = "UPDATE EMPLOYEE\n" +
                 "SET empPhoto = ? WHERE empID = '66665555449'";
         jdbc.update(sql, im);
+
     }
 }

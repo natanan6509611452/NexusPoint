@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.sql.Date;
 import java.sql.Blob;
+
 @Data
 public class EMPLOYEE {
     private String empID;
@@ -172,6 +173,5 @@ public class EMPLOYEE {
     public void setDepID(String depID) {
         this.depID = depID;
     }*/
-
 
 }
