@@ -43,39 +43,9 @@
                             </div>
                         </div>
                     </div>
-
-                    <!--<div class="row align-items-center">
-                        <div class="header">
-                            <h1>ตรวจสอบคำร้องออนไลน์</h1>
-                        </div>
-                    </div>-->
-
-                    <!--<div class="row-nav row grey">
-                        <ul class="nav nav-fill">
-                            <li class="nav-item">
-                                <a class="nav-link" href="statusPageTableAddDrop.html">เพิ่ม-ถอน</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="statusPageTableDropW.html">ถอน W</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    style="background-color: rgba(255, 209, 63, 0.60); ; border-radius: 10px;">เพิ่มข้ามโครงการ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="statusPageTableDropOut.html">ลาออก</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="statusPageTableOther.html">อื่นๆ</a>
-                            </li>
-                        </ul>
-                    </div>-->
-
                     <div class="row-nav row brown py-3">
                         <h5>รายการพัสดุ</h5>
                     </div>
-
-
                     <div class="container-flex">
                         <div class="row row-col-2 grey pt-3 px-2">
                             <div class="col pb-3">
@@ -131,32 +101,16 @@
 
                         </div>
                     </div>
-
-                   <!-- <div class="row-table row text-center align-items-center">
-                        <table class="table table-hover table table-bordered recap-table">
-                            <thead class="table">
-                                <tr>
-                                    <th scope="col">วันที่</th>
-                                    <th scope="col">สถานะ</th>
-                                    <th scope="col">รายละเอียด</th>
-                                    <th scope="col">ยกเลิกคำร้อง</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>-->
                 </div>
             </div>
         </div>
     </div>
 </body>
-<!--<script>
-    window.onload = fetchAddDrop(sessionStorage.getItem("username"));
+<!-- <script>
+    window.onload = fetchAllItem(sessionStorage.getItem("username"));
     console.log(sessionStorage.getItem("username"));
 
-    function fetchAddDrop(id) {
+    function fetchAllItem(id) {
 
         fetch("/users/getRegCrossDataById?id=" + id)
             .then(response => response.json())

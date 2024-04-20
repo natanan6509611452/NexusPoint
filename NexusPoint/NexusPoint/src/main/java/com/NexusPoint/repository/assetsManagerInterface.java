@@ -3,7 +3,7 @@ package com.NexusPoint.repository;
 import com.NexusPoint.model.*;
 import java.util.List;
 
-public interface assetsManagerInterface extends employeeInterface{
+public interface assetsManagerInterface extends employeeRepository{
     public void addItem(ITEM newItem);
     public void editItem(ITEM newItem);
     public void removeItem(String itemID);

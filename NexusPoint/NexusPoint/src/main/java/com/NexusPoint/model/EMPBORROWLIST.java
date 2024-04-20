@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class empBorrowList extends BORROW_ITEM {
+public class EMPBORROWLIST extends BORROW_ITEM {
     private int penaltyAmount;
 }

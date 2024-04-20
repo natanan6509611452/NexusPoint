@@ -26,11 +26,11 @@ public class NexusPointController {
     @Autowired
     private employeeRepository empDao;
 
-    @RequestMapping(value = "/showInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/fetchEmployee", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<EMPLOYEE> showInfo(@RequestParam String id) {
+    public ResponseEntity<EMPLOYEE> fetchEmployee(@RequestParam String id) {
         try {
-            EMPLOYEE data = empDao.showInfo(id);
+            EMPLOYEE data = empDao.fetchEmployee(id);
             return new ResponseEntity<>(data, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -60,8 +60,30 @@ public class NexusPointController {
     }
 
     @GetMapping(value = "/insert")
-    public void insert() throws SQLException {
-        empDao.insertPhoto();
+    public void insert(@RequestParam String empID) throws SQLException {
+        empDao.insertPhoto(empID);
+    }
+
+    @GetMapping(value = "/fetchAllItem")
+    public ResponseEntity<List<ITEM>> fetchAllItem() throws SQLException {
+        try {
+            List<ITEM> data = empDao.fetchAllItem();
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/fetchSomeItem")
+    public ResponseEntity<List<ITEM>> fetchSomeItem(@RequestParam int start, @RequestParam int rows) throws SQLException {
+        try {
+            List<ITEM> data = empDao.fetchSomeItem(start, rows);
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
 
