@@ -60,8 +60,8 @@ public class NexusPointController {
     }
 
     @GetMapping(value = "/insert")
-    public void insert() throws SQLException {
-        empDao.insertPhoto();
+    public void insert(@RequestParam String empID) throws SQLException {
+        empDao.insertPhoto(empID);
     }
 
 

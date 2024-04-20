@@ -1,9 +1,6 @@
 package com.NexusPoint.repository;
 
-import com.NexusPoint.model.BORROW_ITEM;
-import com.NexusPoint.model.EMPLOYEE;
-import com.NexusPoint.model.ITEM;
-import com.NexusPoint.model.USER;
+import com.NexusPoint.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -88,7 +85,7 @@ public class JdbcEmployeeRepository implements employeeRepository {
   
     @Override
     public List<ITEM> itemFilter(Boolean depletable, String Dep, String amount){
-        List<ITEM> itemList = new ArrayList<>();
+        List<ITEM> itemList;
         String QueryStr = "SELECT itemName, ITEM.itemAmount - COALESCE(SUM(BORROW.BorrowAmount), 0) AS availableAmount ";
         if (depletable) {
             QueryStr += "FROM Depletable JOIN Borrow ON Depletable.itemID = Borrow.itemID WHERE itemType = 1 ";
@@ -98,14 +95,14 @@ public class JdbcEmployeeRepository implements employeeRepository {
         if (amount != null && !amount.isEmpty() && Integer.parseInt(amount) >= 0) {
             QueryStr += "AND (availableAmount >= " + amount + ")";
         }
-        itemList = jdbcTemplate.query(QueryStr, new BeanPropertyRowMapper<>(ITEM.class));
+        itemList = jdbc.query(QueryStr, new BeanPropertyRowMapper<>(ITEM.class));
         return itemList;
     }
 
     @Override
-    public List<empBorrowList> checkBorrowLists(String empID) {
+    public List<EMPBORROWLIST> checkBorrowLists(String empID) {
         String queryStr = "SELECT itemID, BorrowStatus, DATEDIFF(returnDate, CURDATE()) * 35 AS penaltyAmount FROM BORROW_ITEM WHERE empID = ?";
-        return jdbcTemplate.query(queryStr, BeanPropertyRowMapper.newInstance(empBorrowList.class), empID);
+        return jdbc.query(queryStr, BeanPropertyRowMapper.newInstance(EMPBORROWLIST.class), empID);
     }
 
 
@@ -116,7 +113,7 @@ public class JdbcEmployeeRepository implements employeeRepository {
     }
 
     @Override
-    public void insertPhoto() throws SQLException {
+    public void insertPhoto(String empID) throws SQLException {
         File imageFile = new File("C:/Users/penci/Downloads/download.jpg");
         byte[] imageBytes = new byte[0];
         try {
@@ -128,8 +125,15 @@ public class JdbcEmployeeRepository implements employeeRepository {
         System.out.println(length);
         Blob im = new javax.sql.rowset.serial.SerialBlob(imageBytes);
         String sql = "UPDATE EMPLOYEE\n" +
-                "SET empPhoto = ? WHERE empID = '66665555449'";
-        jdbc.update(sql, im);
+                "SET empPhoto = ? WHERE empID = ?";
+        jdbc.update(sql, im, empID);
 
+    }
+
+    @Override
+    public void editPass(String newPass, String empID) {
+        String sql = "UPDATE EMPLOYEE\n" +
+                "SET empIDPass = ? WHERE empID = ?";
+        jdbc.update(sql, newPass, empID);
     }
 }

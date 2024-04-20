@@ -10,8 +10,9 @@ public interface employeeRepository {
     public void editUserInfo(EMPLOYEE newInfo);
     public List<ITEM> itemStrSearch(String searchName);
     public List<ITEM> itemFilter(Boolean depletable, String Dep, String amount);
-    public List<BORROW_ITEM> checkBorrowLists();
+    public List<EMPBORROWLIST> checkBorrowLists(String empID);
     public List<ITEM> showAllItem();
     public EMPLOYEE authenticate(USER user);
-    public void insertPhoto() throws SQLException;
+    public void insertPhoto(String empID) throws SQLException;
+    public void editPass(String newPass, String empID);
 }
