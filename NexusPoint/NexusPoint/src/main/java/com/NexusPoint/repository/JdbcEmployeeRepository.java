@@ -33,9 +33,14 @@ public class JdbcEmployeeRepository implements employeeRepository {
 
 
     @Override
-    public EMPLOYEE showInfo(String empID) {
+    public EMPLOYEE fetchEmployee(String empID) {
         String sql = "SELECT * FROM [dbo].[EMPLOYEE] WHERE empID = ?";
         return jdbc.queryForObject(sql, new BeanPropertyRowMapper<>(EMPLOYEE.class), empID);
+    }
+
+    @Override
+    public List<EMPLOYEE> fetchAllEmployee() {
+        return jdbc.query("SELECT * FROM EMPLOYEE", new BeanPropertyRowMapper<>(EMPLOYEE.class));
     }
 
     @Override
@@ -107,9 +112,15 @@ public class JdbcEmployeeRepository implements employeeRepository {
 
 
     @Override
-    public List<ITEM> showAllItem() {
+    public List<ITEM> fetchAllItem() {
         String sql = "SELECT * FROM ITEM";
         return jdbc.query(sql, new BeanPropertyRowMapper<>(ITEM.class));
+    }
+
+    @Override
+    public List<ITEM> fetchSomeItem(int start, int rows) {
+        String sql = "SELECT * FROM ITEM ORDER BY itemID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY;";
+        return jdbc.query(sql, new BeanPropertyRowMapper<>(ITEM.class), start, rows);
     }
 
     @Override
