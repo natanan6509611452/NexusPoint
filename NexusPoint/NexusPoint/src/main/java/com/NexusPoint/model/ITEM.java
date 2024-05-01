@@ -15,6 +15,7 @@ public class ITEM {
     private Boolean itemType;
     private String empID; // FK
     private String depID; // FK
+    private String itemPhoto;
 
     /*public String getItemID() {
         return this.itemID;

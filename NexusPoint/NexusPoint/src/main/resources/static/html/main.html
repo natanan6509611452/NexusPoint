@@ -12,6 +12,7 @@
     <link href="../css/studentStyle.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="../js/navigation.js" type="text/javascript" defer></script>
+
 </head>
 
 <body>
@@ -48,56 +49,6 @@
                     </div>
                     <div class="container-flex">
                         <div class="row row-col-2 grey pt-3 px-2" id="item-list">
-                            <div class="col pb-3">
-                                <div class="card">
-<!--                                    <img src="..." class="card-img-top" alt="...">-->
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col pb-3">
-                                <div class="card">
-<!--                                    <img src="..." class="card-img-top" alt="...">-->
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col pb-3">
-                                <div class="card">
-<!--                                    <img src="..." class="card-img-top" alt="...">-->
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col pb-3">
-                                <div class="card">
-<!--                                    <img src="..." class="card-img-top" alt="...">-->
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col pb-3">
-                                <div class="card">
-<!--                                    <img src="..." class="card-img-top" alt="...">-->
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
@@ -135,15 +86,43 @@
 
                     card.classList.add("col");
                     card.classList.add("pb-3");
-                    var empPhoto = sessionStorage.getItem("empPhoto");
-                    console.log(empPhoto);
+                    var itemPhoto = data[i]["itemPhoto"];
+                    var itemAmount = data[i]["itemAmount"];
+                    console.log(itemPhoto);
+
+                    var hexString = itemPhoto;
+
+                    var base64String = btoa(hexString.match(/\w{2}/g).map(function(a){
+                        return String.fromCharCode(parseInt(a, 16));
+                    }).join(""));
+
+                    console.log(base64String);
 
                     card.innerHTML = `  <div class="card">
-                                            <img src="data:image/png;base64, ` + empPhoto + `" class="card-img-top" alt="...">
+                                            <img src="data:image/png;base64, ` + base64String + `" class="card-img-top" alt="...">
                                             <div class="card-body">
                                                 <h5 class="card-title">Card title</h5>
-                                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                <p class="card-text">Amount: <span>` + itemAmount +`</span></p>
+                                                <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                  รายละเอียด
+                                                </button>
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                                    <div class="modal-content">
+                                                      <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                        ...
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
                                             </div>
                                         </div>`;
 
