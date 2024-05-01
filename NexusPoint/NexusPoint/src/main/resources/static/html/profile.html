@@ -125,14 +125,14 @@
 
 </body>
 <script>
-    window.onload = fetchEmployee(id);
-
+    window.onload = fetchEmployee(sessionStorage.getItem("empID"));
     function fetchEmployee(id) {
-        fetch("/employee/fetchEmployee?start=" + start + "&rows=" + rows)
+        fetch("/employee/fetchEmployee?id=" + id)
             .then(response => response.json())
             .then(data => {
-                for (let i = 0; i < data.length; i++) {
-
+                console.log(data);
+                for (let key in data) {
+                    console.log(key);
                 }
             })
             .catch(error => {
