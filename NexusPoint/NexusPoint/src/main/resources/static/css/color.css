@@ -18,7 +18,7 @@
     background-color: rgba(99, 102, 106, 0.83);
 }
 
-[class*="red"] {
+[class*=" red "] {
     background-color: rgba(154, 0, 37, 0.83);
 }
 

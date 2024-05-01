@@ -28,7 +28,7 @@
         <img src="D:\NexusPofile\images\student\kisspng-computer-icons-university-student-encapsulated-pos-graduate-5b3e93e747cce4.0478424815308277512941.png" alt="Descriptive Image Text">
     </div>
 
-    <a href="#" type="button" class="button3" data-bs-toggle="modal" data-bs-target="#exampleModalLive">สถานะพัสดุ</a>
+    <a href="#" type="button" class="button3" data-bs-toggle="modal" data-bs-target="#a1">สถานะพัสดุ</a>
 
     <div class="details">
         รหัสพนักงาน :<br>
@@ -40,15 +40,15 @@
         ที่อยู่ :<br>
     </div>
     
-    <a href="#" class="button1">แก้ไขข้อมูลส่วนตัว</a>
+    <a href="reinf.html" class="button1">แก้ไขข้อมูลส่วนตัว</a>
 
-    <a href="#" class="button2">แก้ไขรหัสผ่าน</a>
+    <a href="#" class="button2"  data-bs-toggle="modal" data-bs-target="#a2">แก้ไขรหัสผ่าน</a>
 
-    <div class="modal fade" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="a1" tabindex="-1" aria-labelledby="exampleModalLiveLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLiveLabel">สถานะพัสดุ</h1>
+                    <h1 class="modal-title fs-5" >สถานะพัสดุ</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -90,6 +90,34 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="a2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" >แก้ไขรหัสผ่าน</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="รหัสผ่านเดิม">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="รหัสผ่านใหม่">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="ยืนยันรหัสผ่านใหม่">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">ยืนยัน</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
                 </div>
             </div>
         </div>
