@@ -125,7 +125,7 @@ public class JdbcEmployeeRepository implements employeeRepository {
 
     @Override
     public void insertPhoto(String empID) throws SQLException {
-        File imageFile = new File("C:/Users/penci/Downloads/download.jpg");
+        File imageFile = new File("C:/Users/penci/Downloads/keyboard.jpg");
         byte[] imageBytes = new byte[0];
         try {
             imageBytes = Files.readAllBytes(imageFile.toPath());
@@ -135,8 +135,8 @@ public class JdbcEmployeeRepository implements employeeRepository {
         int length = imageBytes.length;
         System.out.println(length);
         Blob im = new javax.sql.rowset.serial.SerialBlob(imageBytes);
-        String sql = "UPDATE EMPLOYEE\n" +
-                "SET empPhoto = ? WHERE empID = ?";
+        String sql = "UPDATE ITEM\n" +
+                "SET itemPhoto = ? WHERE itemID = ?";
         jdbc.update(sql, im, empID);
 
     }
