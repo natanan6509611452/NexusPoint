@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>ข้อมูลส่วนตัว</title>
+    <link href="../css/profile.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="../css/studentStyle.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="../js/navigation.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+
+    <header-component></header-component>
+    
+    
+    
+    <div class="bg-bottom"></div>
+
+    <div class="bg-top"></div>
+
+    <div class="image-box">
+        <img src="D:\NexusPofile\images\student\kisspng-computer-icons-university-student-encapsulated-pos-graduate-5b3e93e747cce4.0478424815308277512941.png" alt="Descriptive Image Text">
+    </div>
+
+    
+    <div class="status-box">
+        สถานะพัสดุ
+    </div>
+  
+    <div class="details">
+        รหัสพนักงาน :<br>
+        ตำแหน่ง :<br>
+        ชื่อ-นามสกุล :<br>
+        วันเกิด :<br>
+        อีเมล :<br>
+        เบอร์โทร :<br>
+        ที่อยู่ :<br>
+    </div>
+    
+    <a href="#" class="button1">แก้ไขข้อมูลส่วนตัว</a>
+
+    <a href="#" class="button2">แก้ไขรหัสผ่าน</a> 
+    
+</body>
+<!-- <script>
+    window.onload = fetchAllItem(sessionStorage.getItem("username"));
+    console.log(sessionStorage.getItem("username"));
+
+    function fetchAllItem(id) {
+
+        fetch("/users/getRegCrossDataById?id=" + id)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                for (let entry in data) {
+                    console.log(data[entry]["date"]);
+                    var addTable = document.querySelector(".recap-table tbody");
+                    var newRow = document.createElement("tr");
+                    var cell = document.createElement("td");
+                    cell.innerHTML = data[entry]["date"];
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td")
+                    cell.innerHTML = (data[entry]["status"] == null) ? "กำลังรอดำเนินการ" : data[entry]["status"];
+                    newRow.appendChild(cell);
+                    addTable.appendChild(newRow);
+                    cell = document.createElement("td")
+                    cell.id = "addTableDesc" + entry;
+                    cell.innerHTML = `<a href="#" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop`+ entry + `">ดูรายละเอียด</a>
+                                        <div class="modal modal-xl fade" id="staticBackdrop`+ entry + `" data-bs-keyboard="false"
+                                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                                            รายละเอียดคำร้อง</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div id="modal-body` + entry + `" class="modal-body">
+                                                        <p>
+                                                            วันที่: <span id="date` + entry + `"></span><br>
+                                                            คำนำหน้านาม: <span id="prefix` + entry + `"></span><br>
+                                                            ชื่อ: <span id="firstName` + entry + `"></span><br>
+                                                            นามสกุล: <span id="lastname` + entry + `"></span><br>
+                                                            รหัสนักศึกษา: <span id="studentId` + entry + `"></span><br>
+                                                            ชั้นปีที่: <span id="studentYear` + entry + `"></span><br>
+                                                            สาขาวิชา: <span id="studentField` + entry + `"></span><br>
+                                                            อาจารย์ที่ปรึกษา: <span id="advisor` + entry + `"></span><br>
+                                                            ที่อยู่ที่สามารถติดต่อได้: <span id="addressNumber` + entry + `"></span>
+                                                            <span id="moo` + entry + `"></span> 
+                                                            <span id="tumbol` + entry + `"></span> 
+                                                            <span id="amphur` + entry + `"></span> 
+                                                            <span id="province` + entry + `"></span> 
+                                                            <span id="postalCode` + entry + `"></span><br>
+                                                            โทรศัพท์มือถือ: <span id="mobilePhone` + entry + `"></span><br>
+                                                            โทรศัพท์: <span id="phone` + entry + `"></span><br>
+                                                            ชื่อวิชาที่ต้องการลงทะเบียน: <span id="reg` + entry + `"></span><br>
+                                                            รหัสวิชา: <span id="code` + entry + `"></span><br>
+                                                            Section: <span id="section` + entry + `"></span><br>
+                                                            เทอม: <span id="semester` + entry + `"></span><br>
+                                                            ปีการศึกษา: <span id="year` + entry + `"></span><br>
+                                                            อาจารย์ประจำวิชา: <span id="teacher` + entry + `"></span><br>
+                                                            เหตุผล: <span id="reason` + entry + `"></span><br>
+                                                        </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        `;
+                    newRow.appendChild(cell);
+                    addTable.appendChild(newRow);
+                    document.querySelector("#date" + entry).innerHTML = data[entry]["date"];
+                    document.querySelector("#prefix" + entry).innerHTML = data[entry]["prefix"];
+                    document.querySelector("#firstName" + entry).innerHTML = data[entry]["firstName"];
+                    document.querySelector("#lastname" + entry).innerHTML = data[entry]["lastname"];
+                    document.querySelector("#studentId" + entry).innerHTML = data[entry]["studentId"];
+                    document.querySelector("#studentField" + entry).innerHTML = data[entry]["studentField"];
+                    document.querySelector("#studentYear" + entry).innerHTML = data[entry]["studentYear"];
+                    document.querySelector("#advisor" + entry).innerHTML = data[entry]["advisor"];
+                    document.querySelector("#addressNumber" + entry).innerHTML = data[entry]["addressNumber"];
+                    document.querySelector("#moo" + entry).innerHTML = data[entry]["moo"];
+                    document.querySelector("#tumbol" + entry).innerHTML = data[entry]["tumbol"];
+                    document.querySelector("#amphur" + entry).innerHTML = data[entry]["amphur"];
+                    document.querySelector("#province" + entry).innerHTML = data[entry]["province"];
+                    document.querySelector("#mobilePhone" + entry).innerHTML = data[entry]["mobilePhone"];
+                    document.querySelector("#phone" + entry).innerHTML = data[entry]["phone"];
+                    document.querySelector("#reg" + entry).innerHTML = data[entry]["reg"];
+                    document.querySelector("#code" + entry).innerHTML = data[entry]["code"];
+                    document.querySelector("#section" + entry).innerHTML = data[entry]["section"];
+                    document.querySelector("#semester" + entry).innerHTML = data[entry]["semester"];
+                    document.querySelector("#year" + entry).innerHTML = data[entry]["year"];
+                    document.querySelector("#teacher" + entry).innerHTML = data[entry]["teacher"];
+                    document.querySelector("#reason" + entry).innerHTML = data[entry]["reason"];
+                    cell = document.createElement("td");
+                    cell.innerHTML = `<td style="color: red !important;">ยกเลิก</td>`;
+                    newRow.appendChild(cell);
+                    addTable.appendChild(newRow);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+</script>-->
+
+</html>

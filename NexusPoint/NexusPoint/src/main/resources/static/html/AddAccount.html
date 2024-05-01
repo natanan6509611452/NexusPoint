@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพิ่มบัญชีใหม่</title>
+    <link rel="stylesheet" href="../css/AddAccount.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <div class="contain">
+        <div class="arrow">
+            <i class="bi bi-arrow-left-circle"></i>
+        </div>
+        <div class="header">
+            <h1>เพิ่มบัญชีใหม่</h1>
+        </div>
+    </div>
+    <div class="detail">
+        <form class="f-detail">
+            <div class="d-left">
+                <label for="name">ชื่อ-นามสกุล:</label>
+                <input type="text" id="name" name="name"><br><br>
+                <label for="empID">รหัสพนักงาน:</label>
+                <input type="text" id="empID" name="empID"><br><br>
+                <label for="address">ที่อยู่:</label><br>
+                <textarea id="address" name="address" rows="10" cols="50"></textarea><br><br>
+            </div>
+            <div class="d-mid">
+                <label for="mail">อีเมล:</label>
+                <input type="email" id="mail" name="mail" style="margin-left: 10px;"><br><br>
+                <label for="birth">วันเกิด:</label>
+                <input type="text" id="birth" name="birth"><br><br>
+                <label for="phone">เบอร์โทร:</label>
+                <input type="text" id="phone" name="phone"><br><br>
+                <div class="icon-pass">
+                    <div class="lock" style="font-size: 24px;">
+                        <i class="bi bi-lock"></i>
+                    </div>
+                    <div class="pass">
+                        <button>ตั้งค่ารหัสผ่าน</button>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="d-right" >
+                <div class="top">
+                    <label for="image">เลือกรูปภาพ:</label><br>
+                    <input type="file" id="image" name="image"><br>
+                    <img id="preview-image" src="#" alt="Preview Image">
+                </div>
+                <div class="down" style="position: fixed; margin-top: 200px;">
+                    <button class="cancel">ยกเลิก</button>
+                    <button type="submit" class="save">ยืนยัน</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        // เลือก input element โดยใช้ id
+        const input = document.querySelector('input[type="file"]');
+        // เลือก img element ที่ใช้แสดงรูปภาพ
+        const previewImage = document.getElementById('preview-image');
+    
+        // เพิ่ม event listener เมื่อมีการเลือกไฟล์
+        input.addEventListener('change', function() {
+            // ตรวจสอบว่ามีการเลือกไฟล์หรือไม่
+            if (input.files && input.files[0]) {
+                // ใช้ FileReader เพื่ออ่านไฟล์เข้ามาเป็น URL
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // กำหนด URL ที่อ่านได้ให้กับ src ของรูปภาพ
+                    previewImage.src = e.target.result;
+                }
+                // อ่านไฟล์เข้ามา
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+    </script>
+</body>
+</html>
