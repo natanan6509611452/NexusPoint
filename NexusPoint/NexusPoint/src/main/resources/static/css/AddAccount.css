@@ -1,0 +1,89 @@
+body {
+  background-color: #FEFAE0;
+  font-size: 20px;
+  margin: 0px;
+}
+
+h1 {
+  margin: 20px !important;
+}
+
+input {
+  width: 200px;
+}
+
+.contain{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: rgba(204, 213, 174, 1);
+}
+
+.arrow{
+  font-size: 3rem; 
+  position: absolute; 
+  left: 10px; 
+  top: 55px; 
+  transform: translateY(-50%);
+  padding: 10px 10px 10px 50px;
+}
+
+.header {
+  text-align: center;
+  padding: 10px 0px 10px 10px;
+}
+
+.detail{
+  padding: 10px 10px 10px 10px;
+  margin: 50px !important;
+}
+
+.f-detail{
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  padding: 0px 30px 30px 30px;
+}
+
+.icon-pass{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  background-color: rgba(190, 77, 0, 0.83);
+  border-radius: 30px;
+  width: 300px;
+  height: 50px;
+  margin: 20px 0px 0px 10px;
+  
+}
+.pass button {
+  font-size: 20px;
+  border: none;
+  background: none;
+  padding: 0;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.save, .cancel{
+  font-size: 20px;
+  background-color: rgba(190, 77, 0, 0.83);
+  border-radius: 20px;
+  width: 150px;
+  height: 50px;
+  margin-left: 10px;
+}
+
+#image {
+  max-width: 200px; /* กำหนดความกว้างสูงสุดของ container */
+  max-height: 200px; /* กำหนดความสูงสูงสุดของ container */
+  overflow: hidden; /* ให้ซ่อนส่วนของรูปที่เกินขอบ container */
+  border: 1px solid #ccc;
+}
+
+#preview-image {
+  width: 100%; /* ทำให้รูปภาพเต็ม container */
+  height: auto;
+}
