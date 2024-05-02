@@ -17,13 +17,10 @@
 <body>
 
     <header-component></header-component>
-    
-    
-    
+
+
     <div class="bg-bottom"></div>
-
     <div class="bg-top"></div>
-
     <div class="image-box">
         <img src="" id="dataEmpPhoto" alt="Your Image">
     </div>
@@ -204,6 +201,10 @@
                 console.log(error);
             });
     }
+    window.addEventListener("load", (event) => {
+        var pageTitle = document.getElementById("pageTitle")
+        pageTitle.innerHTML = document.title;
+    });
 </script>
 
 </html>

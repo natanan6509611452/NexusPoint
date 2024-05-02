@@ -1,9 +1,5 @@
 body {
-    background: linear-gradient(rgba(0, 70, 103, 0.8), rgba(0, 66, 103, 0.3)),
-        url('image/vr012.jpg');
-    background-position: bottom left;
-    background-size: cover;
-    overscroll-behavior-y: none;
+    background-color: #FEFAE0;
 }
 
 .navbar-toggler-icon {

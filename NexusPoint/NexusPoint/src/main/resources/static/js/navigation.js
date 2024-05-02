@@ -11,7 +11,8 @@ class Header extends HTMLElement {
                       data-bs-target="#offcanvasNavbar" data-bs-toggle="offcanvas" type="button">
                       <span class="navbar-toggler-icon"></span>
                   </button>
-                  <div><h2>หน้าแรก</h2></div>
+                  <div><h2 id="pageTitle"></h2></div>
+
                   <div></div>
                   <div aria-labelledby="offcanvasNavbarLabel" class="offcanvas offcanvas-start" id="offcanvasNavbar"
                       tabindex="-1">

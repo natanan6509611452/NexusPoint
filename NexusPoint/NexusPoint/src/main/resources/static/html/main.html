@@ -167,6 +167,10 @@
             location.reload();
         });
     }
+    window.addEventListener("load", (event) => {
+        var pageTitle = document.getElementById("pageTitle")
+        pageTitle.innerHTML = document.title;
+    });
 </script>
 
 </html>
