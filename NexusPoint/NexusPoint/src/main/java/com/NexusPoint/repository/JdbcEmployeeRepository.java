@@ -3,15 +3,21 @@ package com.NexusPoint.repository;
 import com.NexusPoint.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.Mapping;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.sql.Blob;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class JdbcEmployeeRepository implements employeeRepository {
@@ -147,4 +153,49 @@ public class JdbcEmployeeRepository implements employeeRepository {
                 "SET empIDPass = ? WHERE empID = ?";
         jdbc.update(sql, newPass, empID);
     }
+
+    @Override
+    public void borrowItem(String empID, String itemID, int amounts) throws Exception {
+        String retrieveData = "SELECT * FROM ITEM WHERE itemID = ?";
+        String updateAmount = "UPDATE ITEM SET itemAmount = ? WHERE itemID = ?";
+        String addBorrow = "INSERT INTO BORROW_ITEM VALUES(?, ?, ?, ?, ?, ?)";
+        BORROW_ITEM borrowItem = new BORROW_ITEM(empID, itemID, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(1)), amounts, "Normal");
+        System.out.println(itemID);
+        ITEM item = jdbc.queryForObject(retrieveData, new BeanPropertyRowMapper<>(ITEM.class), itemID);
+        if (item.getItemAmount() >= amounts) {
+            jdbc.update(updateAmount, item.getItemAmount() - amounts, itemID);
+            jdbc.update(addBorrow, borrowItem.getEmpID(), borrowItem.getItemID(), borrowItem.getBorrowDate(), borrowItem.getReturnDate(), borrowItem.getBorrowAmount(), borrowItem.getBorrowStatus());
+        }
+        else {
+            throw new Exception("Not enough item");
+        }
+    }
+
+    @Override
+    public void checkBorrowStatus() {
+        String sql = "UPDATE BORROW_ITEM\n" +
+                "SET BorrowStatus = 'Late Returned'\n" +
+                "WHERE BorrowStatus = 'Normal' AND DATEDIFF(DAY, GETDATE(), ReturnDate) < 0;";
+        jdbc.update(sql);
+        sql = "UPDATE BORROW_ITEM\n" +
+                "SET BorrowStatus = 'Normal'\n" +
+                "WHERE BorrowStatus = 'Late Returned' AND DATEDIFF(DAY, GETDATE(), ReturnDate) >= 0;";
+        jdbc.update(sql);
+    }
+
+    @Override
+    public DEPARTMENT checkDepartment(String deptID) {
+        String sql = "SELECT * FROM DEPARTMENT WHERE depID = ?";
+        return jdbc.queryForObject(sql, new BeanPropertyRowMapper<>(DEPARTMENT.class), deptID);
+    }
+
+    @Override
+    public List<BORROW_ITEM_DATA> fetchBorrowStatus(String empID) {
+        String sql = "SELECT BORROW_ITEM.empID, BorrowDate, ReturnDate, BorrowAmount, BorrowStatus, ITEM.* FROM BORROW_ITEM\n" +
+                "LEFT JOIN item ON BORROW_ITEM.itemID = item.itemID\n" +
+                "WHERE BORROW_ITEM.empID = ?";
+        return jdbc.query(sql, new BeanPropertyRowMapper<>(BORROW_ITEM_DATA.class), empID);
+    }
+
+
 }

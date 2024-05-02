@@ -1,11 +1,13 @@
 package com.NexusPoint.model;
 
 import java.sql.Date;
-import lombok.Setter;
-import lombok.Getter;
+
+import lombok.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class BORROW_ITEM {
     private String empID; // FK
     private String itemID; // FK
