@@ -26,11 +26,10 @@ public class NexusPointController {
     @Autowired
     private employeeRepository empDao;
 
-    @RequestMapping(value = "/fetchEmployee", method = RequestMethod.POST)
-    @ResponseBody
+    @GetMapping(value = "/fetchEmployee")
     public ResponseEntity<EMPLOYEE> fetchEmployee(@RequestParam String id) {
         try {
-            EMPLOYEE data = empDao.fetchEmployee(id);
+            EMPLOYEE data = empDao.fetchEmployee(id.replace("\"", ""));
             return new ResponseEntity<>(data, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.getMessage());
