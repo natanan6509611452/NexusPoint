@@ -22,23 +22,23 @@ class Header extends HTMLElement {
                       <div class="offcanvas-body">
                           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                               <li class="nav-item align-self-center">
-                                  <h2>ข้อมูลส่วนตัว</h2>
+                                  <h2>สวัสดี, ` + sessionStorage.getItem("fname") + ` </h2>
                               </li>
-                              <li class="nav-item flex-column align-self-start"
+                              <!-- <li class="nav-item flex-column align-self-start"
                                   style="margin-left: 30px !important; align-items: baseline !important;">
                                   <h3>ชื่อ: <span id="offcanvas-displayname_th"></span></h3>
                                   <h3>รหัสนักศึกษา: <span id="offcanvas-username"></span></h3>
                                   <h3>ภาควิชา: <span id="offcanvas-department"></span></h3>
                                   <h3>อีเมล: <span id="offcanvas-email"></span></h3>
-                              </li>
+                              </li> -->
                               <li class="nav-item align-self-center">
-                                  <button class="btn" onclick="window.location.href='main student.html';" type="button">
-                                      กลับสู่หน้าเมนู
+                                  <button class="btn btn-lg" onclick="window.location.href='profile.html';" type="button">
+                                      ข้อมูลส่วนตัว
                                   </button>
                               </li>
                               <li class="nav-item align-self-center" style="margin-top: -10px !important;">
-                                  <button class="btn" onclick="window.location.href='Login251.html';"
-                                      type="button">Logout</button>
+                                  <button class="btn btn-lg" onclick="window.location.href='login.html';"
+                                      type="button">ออกจากระบบ</button>
                               </li>
                               <script>
                                   document.getElementById("offcanvas-displayname_th").textContent = sessionStorage.getItem("displayname_th")

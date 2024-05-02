@@ -17,4 +17,7 @@ public interface employeeRepository {
     public EMPLOYEE authenticate(USER user);
     public void insertPhoto(String empID) throws SQLException;
     public void editPass(String newPass, String empID);
+    public void borrowItem(String empID, String itemID, int amounts) throws Exception;
+
+    public void checkBorrowStatus();
 }

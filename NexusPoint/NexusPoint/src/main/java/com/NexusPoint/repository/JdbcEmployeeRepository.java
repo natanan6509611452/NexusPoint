@@ -3,14 +3,19 @@ package com.NexusPoint.repository;
 import com.NexusPoint.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.Mapping;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.sql.Blob;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -146,5 +151,30 @@ public class JdbcEmployeeRepository implements employeeRepository {
         String sql = "UPDATE EMPLOYEE\n" +
                 "SET empIDPass = ? WHERE empID = ?";
         jdbc.update(sql, newPass, empID);
+    }
+
+    @Override
+    public void borrowItem(String empID, String itemID, int amounts) throws Exception {
+        String retrieveData = "SELECT * FROM ITEM WHERE itemID = ?";
+        String updateAmount = "UPDATE ITEM SET itemAmount = ? WHERE itemID = ?";
+        String addBorrow = "INSERT INTO BORROW_ITEM VALUES(?, ?, ?, ?, ?, ?)";
+        BORROW_ITEM borrowItem = new BORROW_ITEM(empID, itemID, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(1)), amounts, "Normal");
+        System.out.println(itemID);
+        ITEM item = jdbc.queryForObject(retrieveData, new BeanPropertyRowMapper<>(ITEM.class), itemID);
+        if (item.getItemAmount() >= amounts) {
+            jdbc.update(updateAmount, item.getItemAmount() - amounts, itemID);
+            jdbc.update(addBorrow, borrowItem.getEmpID(), borrowItem.getItemID(), borrowItem.getBorrowDate(), borrowItem.getReturnDate(), borrowItem.getBorrowAmount(), borrowItem.getBorrowStatus());
+        }
+        else {
+            throw new Exception("Not enough item");
+        }
+    }
+
+    @Override
+    public void checkBorrowStatus() {
+        String sql = "UPDATE BORROW_ITEM\n" +
+                "SET BorrowStatus = 'Late Returned'\n" +
+                "WHERE BorrowStatus = 'Normal' AND DATEDIFF(DAY, ReturnDate, GETDATE()) < 0;";
+        jdbc.update(sql);
     }
 }
