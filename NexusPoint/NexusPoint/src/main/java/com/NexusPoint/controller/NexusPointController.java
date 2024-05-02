@@ -102,6 +102,28 @@ public class NexusPointController {
         }
     }
 
+    @GetMapping(value = "/checkDepartment")
+    public ResponseEntity<DEPARTMENT> checkDepartment(@RequestParam String deptID) {
+        try {
+            DEPARTMENT data = empDao.checkDepartment(deptID);
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/fetchBorrowStatus")
+    public ResponseEntity<List<BORROW_ITEM_DATA>> fetchBorrowStatus(@RequestParam String empID) {
+        try {
+            List<BORROW_ITEM_DATA> data = empDao.fetchBorrowStatus(empID);
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
    /* @RequestMapping(value = "/addDrop", method = RequestMethod.POST)
     public void addUser(@RequestBody addDropData addDropData) {

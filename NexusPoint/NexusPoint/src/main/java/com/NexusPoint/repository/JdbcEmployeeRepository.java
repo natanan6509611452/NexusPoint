@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class JdbcEmployeeRepository implements employeeRepository {
@@ -174,7 +175,27 @@ public class JdbcEmployeeRepository implements employeeRepository {
     public void checkBorrowStatus() {
         String sql = "UPDATE BORROW_ITEM\n" +
                 "SET BorrowStatus = 'Late Returned'\n" +
-                "WHERE BorrowStatus = 'Normal' AND DATEDIFF(DAY, ReturnDate, GETDATE()) < 0;";
+                "WHERE BorrowStatus = 'Normal' AND DATEDIFF(DAY, GETDATE(), ReturnDate) < 0;";
+        jdbc.update(sql);
+        sql = "UPDATE BORROW_ITEM\n" +
+                "SET BorrowStatus = 'Normal'\n" +
+                "WHERE BorrowStatus = 'Late Returned' AND DATEDIFF(DAY, GETDATE(), ReturnDate) >= 0;";
         jdbc.update(sql);
     }
+
+    @Override
+    public DEPARTMENT checkDepartment(String deptID) {
+        String sql = "SELECT * FROM DEPARTMENT WHERE depID = ?";
+        return jdbc.queryForObject(sql, new BeanPropertyRowMapper<>(DEPARTMENT.class), deptID);
+    }
+
+    @Override
+    public List<BORROW_ITEM_DATA> fetchBorrowStatus(String empID) {
+        String sql = "SELECT BORROW_ITEM.empID, BorrowDate, ReturnDate, BorrowAmount, BorrowStatus, ITEM.* FROM BORROW_ITEM\n" +
+                "LEFT JOIN item ON BORROW_ITEM.itemID = item.itemID\n" +
+                "WHERE BORROW_ITEM.empID = ?";
+        return jdbc.query(sql, new BeanPropertyRowMapper<>(BORROW_ITEM_DATA.class), empID);
+    }
+
+
 }

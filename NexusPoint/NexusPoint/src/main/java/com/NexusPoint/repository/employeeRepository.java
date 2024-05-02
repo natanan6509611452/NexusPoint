@@ -20,4 +20,8 @@ public interface employeeRepository {
     public void borrowItem(String empID, String itemID, int amounts) throws Exception;
 
     public void checkBorrowStatus();
+
+    public DEPARTMENT checkDepartment(String deptID);
+
+    public List<BORROW_ITEM_DATA> fetchBorrowStatus(String empID);
 }
