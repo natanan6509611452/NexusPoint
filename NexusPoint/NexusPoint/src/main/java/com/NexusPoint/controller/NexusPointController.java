@@ -1,8 +1,6 @@
 package com.NexusPoint.controller;
 
-import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.annotation.Secured;
@@ -10,14 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import com.NexusPoint.model.*;
 import com.NexusPoint.repository.employeeRepository;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
-
-import static ch.qos.logback.core.encoder.ByteArrayUtil.hexStringToByteArray;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
@@ -27,6 +19,7 @@ public class NexusPointController {
     private employeeRepository empDao;
 
     @GetMapping(value = "/fetchEmployee")
+    @ResponseBody
     public ResponseEntity<EMPLOYEE> fetchEmployee(@RequestParam String id) {
         try {
             EMPLOYEE data = empDao.fetchEmployee(id.replace("\"", ""));
@@ -78,6 +71,52 @@ public class NexusPointController {
     public ResponseEntity<List<ITEM>> fetchSomeItem(@RequestParam int start, @RequestParam int rows) throws SQLException {
         try {
             List<ITEM> data = empDao.fetchSomeItem(start, rows);
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/borrowItem", method = RequestMethod.POST)
+    public HttpStatus borrowItem(@RequestBody ITEM_REQUEST request) {
+        try {
+            System.out.println(request.getItemAmount() + " " + request.getItemID());
+            empDao.borrowItem(request.getEmpID(), request.getItemID(), request.getItemAmount());
+            System.out.println("Borrow Successful");
+            return HttpStatus.OK;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return HttpStatus.BAD_REQUEST;
+        }
+    }
+
+    @GetMapping(value = "/checkBorrowStatus")
+    public HttpStatus checkBorrowStatus() {
+        try {
+            empDao.checkBorrowStatus();
+            return HttpStatus.OK;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return HttpStatus.BAD_REQUEST;
+        }
+    }
+
+    @GetMapping(value = "/checkDepartment")
+    public ResponseEntity<DEPARTMENT> checkDepartment(@RequestParam String deptID) {
+        try {
+            DEPARTMENT data = empDao.checkDepartment(deptID);
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/fetchBorrowStatus")
+    public ResponseEntity<List<BORROW_ITEM_DATA>> fetchBorrowStatus(@RequestParam String empID) {
+        try {
+            List<BORROW_ITEM_DATA> data = empDao.fetchBorrowStatus(empID);
             return new ResponseEntity<>(data, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.getMessage());

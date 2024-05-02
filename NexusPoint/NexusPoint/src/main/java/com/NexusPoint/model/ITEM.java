@@ -9,12 +9,13 @@ import java.time.LocalDate;
 public class ITEM {
     private String itemID;
     private String itemName;
-    private String itemAmount;
+    private int itemAmount;
     private int cost;
     private LocalDate purchaseDate;
     private Boolean itemType;
     private String empID; // FK
     private String depID; // FK
+    private String itemPhoto;
 
     /*public String getItemID() {
         return this.itemID;

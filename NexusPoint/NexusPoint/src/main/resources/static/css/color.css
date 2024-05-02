@@ -6,15 +6,15 @@
     background-color: rgba(110, 43, 98, 0.83);
 }
 
-[class*="blue"] {
+[class*=" blue "] {
     background-color: rgba(66, 152, 181, 0.83);
 }
 
-[class*="orange"] {
+[class*=" orange "] {
     background-color: rgba(190, 77, 0, 0.83);
 }
 
-[class*="grey"] {
+[class*=" grey "] {
     background-color: rgba(99, 102, 106, 0.83);
 }
 
@@ -26,7 +26,7 @@
     background-color: rgba(214, 162, 0, 0.83);
 }
 
-[class*="pastel-green"] {
+[class*=" pastel-green "] {
     background-color: rgba(204, 213, 174, 1);
 }
 

@@ -17,34 +17,32 @@
 <body>
 
     <header-component></header-component>
-    
-    
-    
+
+
     <div class="bg-bottom"></div>
-
     <div class="bg-top"></div>
-
     <div class="image-box">
-        <img src="D:\NexusPofile\images\student\kisspng-computer-icons-university-student-encapsulated-pos-graduate-5b3e93e747cce4.0478424815308277512941.png" alt="Descriptive Image Text">
+        <img src="" id="dataEmpPhoto" alt="Your Image">
     </div>
 
-    <a href="#" type="button" class="button3" data-bs-toggle="modal" data-bs-target="#a1">สถานะพัสดุ</a>
+    <a href="#" type="button" class="button3" data-bs-toggle="modal" data-bs-target="#empBorrowList">สถานะพัสดุ</a>
 
     <div class="details">
-        รหัสพนักงาน :<br>
-        ตำแหน่ง :<br>
-        ชื่อ-นามสกุล :<br>
-        วันเกิด :<br>
-        อีเมล :<br>
-        เบอร์โทร :<br>
-        ที่อยู่ :<br>
+        รหัสพนักงาน : <span id="dataEmpID"></span> <br>
+        ชื่อ-นามสกุล : <span id="dataEmpName"></span> <br>
+        ตำแหน่ง : <span id="dataEmpRole"></span> <br>
+        แผนก : <span id="dataEmpDept"></span> <br>
+        วันเกิด : <span id="dataEmpBDate"></span> <br>
+        อีเมล : <span id="dataEmpMail"></span> <br>
+        เบอร์โทร : <span id="dataEmpTel"></span> <br>
+        ที่อยู่ : <span id="dataEmpAddress"></span> <br>
     </div>
     
     <a href="reinf.html" class="button1">แก้ไขข้อมูลส่วนตัว</a>
 
     <a href="#" class="button2"  data-bs-toggle="modal" data-bs-target="#a2">แก้ไขรหัสผ่าน</a>
 
-    <div class="modal fade" id="a1" tabindex="-1" aria-labelledby="exampleModalLiveLabel" style="display: none;" aria-hidden="true">
+    <div class="modal fade " id="empBorrowList" tabindex="-1" aria-labelledby="exampleModalLiveLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -59,11 +57,11 @@
                                     <div style="height:80px"></div>
                                 </div>
                                 <div class = "table-responsive text-center rounded-top" >
-                                    <table class="table table-bordered ">
+                                    <table class="table table-bordered " id="borrowStatusTable">
                                         <thead >
                                         <tr class = "border-black  " >
                                             <th>ลำดับ</th>
-                                            <th>รายการพัสดุ</th>
+                                            <th>ชื่อพัสดุ</th>
                                             <th>รหัสพัสดุ</th>
                                             <th>จำนวน</th>
                                             <th>ยืมวันที่</th>
@@ -72,15 +70,8 @@
                                             <th>ค่าปรับ (บาท) </th>
                                         </tr>
                                         </thead>
-                                        <tbody id ="">
-                                        <td>1</td>
-                                        <td>TEXTBOOK251</td>
-                                        <td>DB251</td>
-                                        <td>1</td>
-                                        <td>30/2/2567</td>
-                                        <td>3/3/2561</td>
-                                        <td>เกินกำหนด</td>
-                                        <td>405</td>
+                                        <tbody id ="borrowStatusTableBody">
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -126,19 +117,94 @@
 </body>
 <script>
     window.onload = fetchEmployee(sessionStorage.getItem("empID"));
+
     function fetchEmployee(id) {
         fetch("/employee/fetchEmployee?id=" + id)
             .then(response => response.json())
             .then(data => {
+                fetch("/employee/checkDepartment?deptID=" + sessionStorage.getItem("depID"))
+                    .then(response => response.json())
+                    .then(deptData => {
+                        deptName = deptData["depName"];
+                        sessionStorage.setItem('depName', deptData["depName"]);
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                var dataEmpID = document.getElementById("dataEmpID");
+                var dataEmpName = document.getElementById("dataEmpName");
+                var dataEmpRole = document.getElementById("dataEmpRole");
+                var dataEmpDept = document.getElementById("dataEmpDept");
+                var dataEmpBDate = document.getElementById("dataEmpBDate");
+                var dataEmpMail = document.getElementById("dataEmpMail");
+                var dataEmpTel = document.getElementById("dataEmpTel");
+                var dataEmpPhoto = document.getElementById("dataEmpPhoto");
+                var dataEmpAddress = document.getElementById("dataEmpAddress");
+
+                dataEmpID.innerHTML = data["empID"];
+                dataEmpName.innerHTML = data["fname"] + " " + data["mname"] + " " +data["lname"];
+                dataEmpRole.innerHTML = data["empRole"];
+                dataEmpDept.innerHTML = sessionStorage.getItem("depName");
+                dataEmpBDate.innerHTML = data["empBDate"];
+                dataEmpMail.innerHTML = data["empMail"];
+                dataEmpTel.innerHTML = data["empTel"];
+                dataEmpAddress.innerHTML = data["houseNo"] + " " + data["road"] + " " + data["subDistrict"] + " " + data["district"] + " " + data["province"] + " " +data["country"] + " " + data["postcode"]
+
+                var hexString = data["empPhoto"];
+                var base64String = btoa(hexString.match(/\w{2}/g).map(function(a){
+                    return String.fromCharCode(parseInt(a, 16));
+                }).join(""));
+                dataEmpPhoto.src = "data:image/png;base64," + base64String;
+                fetchBorrowData(data["empID"]);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    function fetchBorrowData(empID) {
+        fetch("/employee/checkBorrowStatus");
+        fetch("/employee/fetchBorrowStatus?empID=" + empID)
+            .then(response => response.json())
+            .then(data => {
+                var bstb = document.getElementById("borrowStatusTableBody");
                 console.log(data);
-                for (let key in data) {
-                    console.log(key);
+                for (let i = 0; i < data.length; i++) {
+                    var newRow = document.createElement("tr");
+                    var cell = document.createElement("td");
+                    cell.innerHTML = i+1;
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = data[i]["itemName"].toUpperCase();
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = data[i]["itemID"];
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = data[i]["borrowAmount"];
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = data[i]["borrowDate"];
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = data[i]["returnDate"];
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = data[i]["borrowStatus"];
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = `<a href="#" style="color: red;">ชำระค่าปรับ</a>`;
+                    newRow.appendChild(cell);
+                    bstb.appendChild(newRow);
                 }
             })
             .catch(error => {
                 console.log(error);
             });
     }
+    window.addEventListener("load", (event) => {
+        var pageTitle = document.getElementById("pageTitle")
+        pageTitle.innerHTML = document.title;
+    });
 </script>
 
 </html>
