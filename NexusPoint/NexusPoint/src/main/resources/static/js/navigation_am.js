@@ -33,13 +33,18 @@ class Header extends HTMLElement {
                                   <h3>อีเมล: <span id="offcanvas-email"></span></h3>
                               </li> -->
                               <li class="nav-item align-self-center">
-                                  <button class="btn btn-lg" onclick="window.location.href='profile.html';" type="button">
-                                      ข้อมูลส่วนตัว
+                                  <button class="btn btn-lg" onclick="window.location.href='main_assetmanager.html';" type="button">
+                                      หน้าแรก
                                   </button>
                               </li>
                               <li class="nav-item align-self-center" style="margin-top: -10px !important;">
-                                  <button class="btn btn-lg" onclick="window.location.href='main.html';" type="button">
-                                      หน้าแรก
+                                <button class="btn btn-lg" onclick="window.location.href='main_item_asset.html';" type="button">
+                                    จัดการพัสดุ
+                                </button>
+                              </li>
+                              <li class="nav-item align-self-center" style="margin-top: -10px !important;">
+                                  <button class="btn btn-lg" onclick="window.location.href='profile_asset.html';" type="button">
+                                      ข้อมูลส่วนตัว
                                   </button>
                               </li>
                               <li class="nav-item align-self-center" style="margin-top: -10px !important;">
@@ -61,4 +66,4 @@ class Header extends HTMLElement {
   }
 }
 
-customElements.define('header-component', Header);
+customElements.define('header-component-am', Header);

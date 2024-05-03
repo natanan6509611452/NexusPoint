@@ -1,8 +1,8 @@
-[class*="green"] {
+[class*=" green "] {
     background-color: rgba(103, 130, 58, 0.83);
 }
 
-[class*="purple"] {
+[class*=" purple "] {
     background-color: rgba(110, 43, 98, 0.83);
 }
 

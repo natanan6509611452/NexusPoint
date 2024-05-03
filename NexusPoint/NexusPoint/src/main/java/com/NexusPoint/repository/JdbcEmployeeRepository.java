@@ -3,11 +3,9 @@ package com.NexusPoint.repository;
 import com.NexusPoint.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.Mapping;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -15,9 +13,8 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 public class JdbcEmployeeRepository implements employeeRepository {
@@ -50,7 +47,7 @@ public class JdbcEmployeeRepository implements employeeRepository {
     }
 
     @Override
-    public void editUserInfo(EMPLOYEE newInfo) {
+    public EMPLOYEE editEmployeeInfo(EMPLOYEE newInfo) {
         String sql = "UPDATE EMPLOYEE\n" +
                 "SET FName = ?, " +
                 "MName = ?, " +
@@ -65,14 +62,13 @@ public class JdbcEmployeeRepository implements employeeRepository {
                 "Postcode = ?, " +
                 "empTel = ?, " +
                 "empMail = ?, " +
-                "empRole = ?, " +
-                "empIDPass = ?, " +
-                "empPhoto = ?, " +
+                "empRole = ? " +
                 "WHERE empID = ?;";
         jdbc.update(sql, newInfo.getFname(), newInfo.getMname(), newInfo.getLname(),
                 newInfo.getEmpBDate(), newInfo.getHouseNo(), newInfo.getRoad(), newInfo.getSubDistrict(),
                 newInfo.getDistrict(), newInfo.getProvince(), newInfo.getCountry(), newInfo.getPostcode(),
-                newInfo.getEmpTel(), newInfo.getEmpMail(), newInfo.getEmpRole(), newInfo.getEmpIDPass(), newInfo.getEmpPhoto());
+                newInfo.getEmpTel(), newInfo.getEmpMail(), newInfo.getEmpRole(), newInfo.getEmpID());
+        return jdbc.queryForObject("SELECT * FROM EMPLOYEE WHERE empID = ?", new BeanPropertyRowMapper<>(EMPLOYEE.class), newInfo.getEmpID());
     }
 
     @Override
@@ -130,8 +126,29 @@ public class JdbcEmployeeRepository implements employeeRepository {
     }
 
     @Override
-    public void insertPhoto(String empID) throws SQLException {
-        File imageFile = new File("C:/Users/penci/Downloads/keyboard.jpg");
+    public void insertPhoto(EMPPHOTO empPhoto) throws SQLException {
+        String base64 = empPhoto.getEmpPhoto();
+        byte[] b = Base64.getDecoder().decode(base64);
+        Blob im = new javax.sql.rowset.serial.SerialBlob(b);
+        String sql = "UPDATE EMPLOYEE\n" +
+                "SET empPhoto = ? WHERE empID = ?";
+        jdbc.update(sql, b, empPhoto.getEmpID());
+
+    }
+
+    @Override
+    public void insertItemPhoto(ITEMPHOTO itemphoto) throws SQLException {
+        String base64 = itemphoto.getItemPhoto();
+        byte[] b = Base64.getDecoder().decode(base64);
+        Blob im = new javax.sql.rowset.serial.SerialBlob(b);
+        String sql = "UPDATE ITEM\n" +
+                "SET itemPhoto = ? WHERE itemID = ?";
+        jdbc.update(sql, b, itemphoto.getItemID());
+    }
+
+    @Override
+    public void insertIm(String empID) throws SQLException {
+        File imageFile = new File("C:/Users/penci/Downloads/download.png");
         byte[] imageBytes = new byte[0];
         try {
             imageBytes = Files.readAllBytes(imageFile.toPath());
@@ -141,10 +158,9 @@ public class JdbcEmployeeRepository implements employeeRepository {
         int length = imageBytes.length;
         System.out.println(length);
         Blob im = new javax.sql.rowset.serial.SerialBlob(imageBytes);
-        String sql = "UPDATE ITEM\n" +
-                "SET itemPhoto = ? WHERE itemID = ?";
+        String sql = "UPDATE EMPLOYEE\n" +
+                "SET empPhoto = ? WHERE empID = ?";
         jdbc.update(sql, im, empID);
-
     }
 
     @Override
@@ -190,6 +206,12 @@ public class JdbcEmployeeRepository implements employeeRepository {
     }
 
     @Override
+    public ITEM fetchItem(String itemID) {
+        String sql = "SELECT * FROM ITEM WHERE itemID = ?";
+        return jdbc.queryForObject(sql,new BeanPropertyRowMapper<>(ITEM.class), itemID);
+    }
+
+    @Override
     public List<BORROW_ITEM_DATA> fetchBorrowStatus(String empID) {
         String sql = "SELECT BORROW_ITEM.empID, BorrowDate, ReturnDate, BorrowAmount, BorrowStatus, ITEM.* FROM BORROW_ITEM\n" +
                 "LEFT JOIN item ON BORROW_ITEM.itemID = item.itemID\n" +
@@ -197,5 +219,87 @@ public class JdbcEmployeeRepository implements employeeRepository {
         return jdbc.query(sql, new BeanPropertyRowMapper<>(BORROW_ITEM_DATA.class), empID);
     }
 
+    @Override
+    public ITEM editItemInfo(ITEM newInfo) {
+        String sql = "UPDATE ITEM\n" +
+                "SET itemName = ?, " +
+                "itemAmount = ?, " +
+                "cost = ?, " +
+                "purchaseDate = ?, " +
+                "itemType = ?, " +
+                "depID = ? " +
+                "WHERE itemID = ?;";
+        jdbc.update(sql, newInfo.getItemName(), newInfo.getItemAmount(), newInfo.getCost(), newInfo.getPurchaseDate(), newInfo.getItemType(), newInfo.getDepID(), newInfo.getItemID());
+        return jdbc.queryForObject("SELECT * FROM ITEM WHERE itemID = ?", new BeanPropertyRowMapper<>(ITEM.class), newInfo.getItemID());
+    }
 
+    @Override
+    public void deleteItem(String itemID) {
+        String sql = "DELETE FROM ITEM WHERE itemID = ?;";
+        jdbc.update(sql, itemID);
+    }
+
+    @Override
+    public void deleteEmployee(String empID) {
+        String sql = "DELETE FROM EMPLOYEE WHERE empID = ?;";
+        jdbc.update(sql, empID);
+    }
+
+    @Override
+    public List<ITEM> fetchItemByName(String itemName) {
+        String sql = "SELECT * FROM ITEM WHERE itemName LIKE CONCAT('%',?,'%');";
+        return jdbc.query(sql, new BeanPropertyRowMapper<>(ITEM.class), itemName);
+    }
+
+    @Override
+    public List<ITEM> fetchItemByID(String itemID) {
+        String sql = "SELECT * FROM ITEM WHERE itemID = ?;";
+        return jdbc.query(sql, new BeanPropertyRowMapper<>(ITEM.class), itemID);
+    }
+
+    @Override
+    public List<EMPLOYEE> fetchEmpByID(String empID) {
+        String sql = "SELECT * FROM EMPLOYEE WHERE empID = ?;";
+        return jdbc.query(sql, new BeanPropertyRowMapper<>(EMPLOYEE.class), empID);
+    }
+
+    @Override
+    public List<EMPLOYEE> fetchEmpByName(String empName) {
+        String sql = "SELECT * FROM EMPLOYEE WHERE fname LIKE CONCAT('%',?,'%') or mname LIKE CONCAT('%',?,'%') or lname LIKE CONCAT('%',?,'%');";
+        return jdbc.query(sql, new BeanPropertyRowMapper<>(EMPLOYEE.class), empName, empName, empName);
+    }
+    @Override
+    public void addEmployee(EMPLOYEE newEmp) throws SQLException {
+        String base64 = newEmp.getEmpPhoto();
+        byte[] b = Base64.getDecoder().decode(base64);
+        Blob im = new javax.sql.rowset.serial.SerialBlob(b);
+        System.out.println(im);
+        String sql = "INSERT INTO EMPLOYEE\n" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        jdbc.update(sql, newEmp.getEmpID(), newEmp.getFname(), newEmp.getMname(), newEmp.getLname(), newEmp.getEmpBDate(), newEmp.getHouseNo(), newEmp.getRoad(), newEmp.getSubDistrict(), newEmp.getProvince(), newEmp.getCountry(), newEmp.getPostcode(), newEmp.getEmpTel(), newEmp.getEmpMail(), newEmp.getEmpRole(), newEmp.getEmpIDPass(), im,newEmp.getDepID(), newEmp.getDistrict());
+    }
+    @Override
+    public void addItem(INDEPLETABLE newItem) throws SQLException {
+        String base64 = newItem.getItemPhoto();
+        byte[] b = Base64.getDecoder().decode(base64);
+        Blob im = new javax.sql.rowset.serial.SerialBlob(b);
+        System.out.println(im);
+        String sql = "INSERT INTO ITEM\n" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        jdbc.update(sql, newItem.getItemID(), newItem.getItemName(), newItem.getItemAmount(), newItem.getCost(), newItem.getPurchaseDate(), newItem.getItemType(), newItem.getEmpID(), newItem.getDepID(), im);
+        sql = "INSERT INTO INDEPLETABLE VALUES(?, ?)";
+        jdbc.update(sql, newItem.getItemID(), newItem.getMaintenanceDate());
+    }
+    @Override
+    public void addItem(DEPLETABLE newItem) throws SQLException {
+        String base64 = newItem.getItemPhoto();
+        byte[] b = Base64.getDecoder().decode(base64);
+        Blob im = new javax.sql.rowset.serial.SerialBlob(b);
+        System.out.println(im);
+        String sql = "INSERT INTO ITEM\n" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        jdbc.update(sql, newItem.getItemID(), newItem.getItemName(), newItem.getItemAmount(), newItem.getCost(), newItem.getPurchaseDate(), newItem.getItemType(), newItem.getEmpID(), newItem.getDepID(), im);
+        sql = "INSERT INTO DEPLETABLE VALUES(?, ?)";
+        jdbc.update(sql, newItem.getItemID(), newItem.getRestockDate());
+    }
 }

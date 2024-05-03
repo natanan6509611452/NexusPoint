@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>ข้อมูลส่วนตัว</title>
+    <link href="../css/profile.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="../css/studentStyle.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="../js/navigation_am.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+
+    <header-component-am></header-component-am>
+
+
+    <div class="bg-bottom"></div>
+    <div class="bg-top"></div>
+    <div class="image-box">
+        <img src="" id="dataEmpPhoto" alt="Your Image">
+    </div>
+
+    <a href="#" type="button" class="button3" data-bs-toggle="modal" data-bs-target="#empBorrowList">สถานะพัสดุ</a>
+
+    <div class="details">
+        รหัสพนักงาน : <span id="dataEmpID"></span> <br>
+        ชื่อ-นามสกุล : <span id="dataEmpName"></span> <br>
+        ตำแหน่ง : <span id="dataEmpRole"></span> <br>
+        แผนก : <span id="dataEmpDept"></span> <br>
+        วันเกิด : <span id="dataEmpBDate"></span> <br>
+        อีเมล : <span id="dataEmpMail"></span> <br>
+        เบอร์โทร : <span id="dataEmpTel"></span> <br>
+        ที่อยู่ : <span id="dataEmpAddress"></span> <br>
+    </div>
+    
+    <a href="reinf_assetmanager.html" class="button1">แก้ไขข้อมูลส่วนตัว</a>
+
+    <a href="#" class="button2"  data-bs-toggle="modal" data-bs-target="#a2">แก้ไขรหัสผ่าน</a>
+
+    <div class="modal fade " id="empBorrowList" tabindex="-1" aria-labelledby="exampleModalLiveLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" >สถานะพัสดุ</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center min-vh-100">
+                        <div class="col-11">
+                            <div class="d-flex flex-column h-100">
+                                <div class="row justify-content-center">
+                                    <div style="height:80px"></div>
+                                </div>
+                                <div class = "table-responsive text-center rounded-top" >
+                                    <table class="table table-bordered " id="borrowStatusTable">
+                                        <thead >
+                                        <tr class = "border-black  " >
+                                            <th>ลำดับ</th>
+                                            <th>ชื่อพัสดุ</th>
+                                            <th>รหัสพัสดุ</th>
+                                            <th>จำนวน</th>
+                                            <th>ยืมวันที่</th>
+                                            <th>คืนวันที่</th>
+                                            <th>สถานะ</th>
+                                            <th>ค่าปรับ (บาท) </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id ="borrowStatusTableBody">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <button type="button" class="btn btn-primary px-5" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: rgba(154, 0, 37, 0.70) !important;">
+            ลบพัสดุ
+        </button>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">ยืนยันการลบพัสดุ</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ต้องการลบพัสดุจริงหรือไม่
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                        <button type="button" class="btn btn-primary" onclick="deleteItem()" style="background-color: rgba(154, 0, 37, 0.70) !important;">ลบพัสดุ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="a2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" >แก้ไขรหัสผ่าน</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="รหัสผ่านเดิม">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="รหัสผ่านใหม่">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="ยืนยันรหัสผ่านใหม่">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">ยืนยัน</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    window.onload = fetchEmployee(sessionStorage.getItem("empID"));
+    sessionStorage.setItem("editEmpID", sessionStorage.getItem("empID"));
+    function fetchEmployee(id) {
+        fetch("/employee/fetchEmployee?id=" + id)
+            .then(response => response.json())
+            .then(data => {
+                fetch("/employee/checkDepartment?deptID=" + sessionStorage.getItem("depID"))
+                    .then(response => response.json())
+                    .then(deptData => {
+                        deptName = deptData["depName"];
+                        sessionStorage.setItem('depName', deptData["depName"]);
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                var dataEmpID = document.getElementById("dataEmpID");
+                var dataEmpName = document.getElementById("dataEmpName");
+                var dataEmpRole = document.getElementById("dataEmpRole");
+                var dataEmpDept = document.getElementById("dataEmpDept");
+                var dataEmpBDate = document.getElementById("dataEmpBDate");
+                var dataEmpMail = document.getElementById("dataEmpMail");
+                var dataEmpTel = document.getElementById("dataEmpTel");
+                var dataEmpPhoto = document.getElementById("dataEmpPhoto");
+                var dataEmpAddress = document.getElementById("dataEmpAddress");
+
+                dataEmpID.innerHTML = data["empID"];
+                dataEmpName.innerHTML = data["fname"] + " " + data["mname"] + " " +data["lname"];
+                dataEmpRole.innerHTML = data["empRole"];
+                dataEmpDept.innerHTML = sessionStorage.getItem("depName");
+                dataEmpBDate.innerHTML = data["empBDate"];
+                dataEmpMail.innerHTML = data["empMail"];
+                dataEmpTel.innerHTML = data["empTel"];
+                dataEmpAddress.innerHTML = data["houseNo"] + " " + data["road"] + " " + data["subDistrict"] + " " + data["district"] + " " + data["province"] + " " +data["country"] + " " + data["postcode"]
+
+                var hexString = data["empPhoto"];
+                var base64String = btoa(hexString.match(/\w{2}/g).map(function(a){
+                    return String.fromCharCode(parseInt(a, 16));
+                }).join(""));
+                dataEmpPhoto.src = "data:image/png;base64," + base64String;
+                fetchBorrowData(data["empID"]);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    function fetchBorrowData(empID) {
+        fetch("/employee/checkBorrowStatus");
+        fetch("/employee/fetchBorrowStatus?empID=" + empID)
+            .then(response => response.json())
+            .then(data => {
+                var bstb = document.getElementById("borrowStatusTableBody");
+                console.log(data);
+                for (let i = 0; i < data.length; i++) {
+                    var newRow = document.createElement("tr");
+                    var cell = document.createElement("td");
+                    cell.innerHTML = i+1;
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = data[i]["itemName"].toUpperCase();
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = data[i]["itemID"];
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = data[i]["borrowAmount"];
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = data[i]["borrowDate"];
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = data[i]["returnDate"];
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = data[i]["borrowStatus"];
+                    newRow.appendChild(cell);
+                    cell = document.createElement("td");
+                    cell.innerHTML = `<a href="#" style="color: red;">ชำระค่าปรับ</a>`;
+                    newRow.appendChild(cell);
+                    bstb.appendChild(newRow);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+    window.addEventListener("load", (event) => {
+        var pageTitle = document.getElementById("pageTitle")
+        pageTitle.innerHTML = document.title;
+    });
+</script>
+
+</html>

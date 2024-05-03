@@ -29,6 +29,17 @@ public class NexusPointController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping(value = "/fetchAllEmployee")
+    @ResponseBody
+    public ResponseEntity<List<EMPLOYEE>> fetchAllEmployee() {
+        try {
+            List<EMPLOYEE> data = empDao.fetchAllEmployee();
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
@@ -51,9 +62,14 @@ public class NexusPointController {
         }
     }
 
-    @GetMapping(value = "/insert")
-    public void insert(@RequestParam String empID) throws SQLException {
-        empDao.insertPhoto(empID);
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    public void insert(@RequestBody EMPPHOTO empPhoto) throws SQLException {
+        empDao.insertPhoto(empPhoto);
+    }
+
+    @GetMapping(value = "/insertIm")
+    public void insertIm(@RequestParam String empID) throws SQLException {
+        empDao.insertIm(empID);
     }
 
     @GetMapping(value = "/fetchAllItem")
@@ -71,6 +87,17 @@ public class NexusPointController {
     public ResponseEntity<List<ITEM>> fetchSomeItem(@RequestParam int start, @RequestParam int rows) throws SQLException {
         try {
             List<ITEM> data = empDao.fetchSomeItem(start, rows);
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/fetchItem")
+    public ResponseEntity<ITEM> fetchItem(@RequestParam String itemID) throws SQLException {
+        try {
+            ITEM data = empDao.fetchItem(itemID);
             return new ResponseEntity<>(data, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -124,6 +151,113 @@ public class NexusPointController {
         }
     }
 
+    @RequestMapping(value = "/editEmployeeInfo", method = RequestMethod.POST)
+    public ResponseEntity<EMPLOYEE> editEmployeeInfo(@RequestBody EMPLOYEE emp) {
+        try {
+            EMPLOYEE newEmpData = empDao.editEmployeeInfo(emp);
+            return new ResponseEntity<>(newEmpData, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/editItemInfo", method = RequestMethod.POST)
+    public ResponseEntity<ITEM> editEmployeeInfo(@RequestBody ITEM item) {
+        try {
+            ITEM newEmpData = empDao.editItemInfo(item);
+            return new ResponseEntity<>(newEmpData, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/insertItemPhoto", method = RequestMethod.POST)
+    public void insertItemPhoto(@RequestBody ITEMPHOTO itemphoto) throws SQLException {
+        empDao.insertItemPhoto(itemphoto);
+    }
+    @GetMapping(value = "/deleteItem")
+    public void deleteItem(@RequestParam String itemID) throws SQLException {
+        empDao.deleteItem(itemID);
+    }
+
+    @GetMapping(value = "/deleteEmployee")
+    public void deleteEmployee(@RequestParam String empID) throws SQLException {
+        empDao.deleteEmployee(empID);
+    }
+
+    @GetMapping(value = "/fetchEmpByID")
+    public ResponseEntity<List<EMPLOYEE>> fetchEmpByID(@RequestParam String empID) throws SQLException {
+        try {
+            List<EMPLOYEE> a = empDao.fetchEmpByID(empID);
+            return new ResponseEntity<>(a, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping(value = "/fetchEmpByName")
+    public ResponseEntity<List<EMPLOYEE>> fetchEmpByName(@RequestParam String empName) throws SQLException {
+        try {
+            List<EMPLOYEE> a = empDao.fetchEmpByName(empName);
+            return new ResponseEntity<>(a, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping(value = "/fetchItemByID")
+    public ResponseEntity<List<ITEM>> fetchItemByID(@RequestParam String itemID) throws SQLException {
+        try {
+            List<ITEM> a = empDao.fetchItemByID(itemID);
+            return new ResponseEntity<>(a, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping(value = "/fetchItemByName")
+    public ResponseEntity<List<ITEM>> fetchItemByName(@RequestParam String itemName) throws SQLException {
+        try {
+            List<ITEM> a = empDao.fetchItemByName(itemName);
+            return new ResponseEntity<>(a, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
+    public HttpStatus addEmployee(@RequestBody EMPLOYEE newEmp) throws SQLException {
+        try {
+            empDao.addEmployee(newEmp);
+            return HttpStatus.OK ;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return HttpStatus.BAD_REQUEST;
+        }
+    }
+    @RequestMapping(value = "/addIndepItem", method = RequestMethod.POST)
+    public HttpStatus addItem(@RequestBody INDEPLETABLE newItem) throws SQLException {
+        try {
+            empDao.addItem(newItem);
+            return HttpStatus.OK ;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return HttpStatus.BAD_REQUEST;
+        }
+    }
+    @RequestMapping(value = "/addDepItem", method = RequestMethod.POST)
+    public HttpStatus addItem(@RequestBody DEPLETABLE newItem) throws SQLException {
+        try {
+            empDao.addItem(newItem);
+            return HttpStatus.OK ;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return HttpStatus.BAD_REQUEST;
+        }
+    }
 
    /* @RequestMapping(value = "/addDrop", method = RequestMethod.POST)
     public void addUser(@RequestBody addDropData addDropData) {

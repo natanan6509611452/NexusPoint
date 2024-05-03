@@ -11,12 +11,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link href="../css/studentStyle.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="../js/navigation.js" type="text/javascript" defer></script>
+    <script src="../js/navigation_am.js" type="text/javascript" defer></script>
 </head>
 
 <body>
 
-    <header-component></header-component>
+    <header-component-am></header-component-am>
 
     <div class="container">
 
@@ -30,230 +30,193 @@
                     <div class="row justify-content-center mb-4">
                         <div class="row input-group justify-content-center" style="padding: 0;">
                             <div class="row input-group-append" style="padding: 0;">
-                                <button class="col-2 btn dropdown-toggle" style="border-radius: 15px 0px 0 15px !important;" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-filter"></i></button>
-                                <ul class="col-8 dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Separated link</a></li>
-                                </ul>
-                                <input type="text" style="border-radius: 0px 0px 0 0px !important;" class="col form-control ps-4" placeholder="ค้นหาพัสดุ" aria-label="Asset Name" aria-describedby="basic-addon2">
-                                <button class="col-3 btn btn-search p-2" style="border-radius: 0px 15px 15px 0px !important;" type="button"><i class="bi bi-search"></i></button>
+                                <div class="input-group mb-3" >
+                                    <select class="custom-select rounded-start-3 brown " id="inputGroupSelect02">
+                                        <option selected value="ID">ID</option>
+                                        <option value="Name">Name</option>
+                                    </select>
+                                    <input aria-describedby="basic-addon2" aria-label="Asset Name"
+                                           class="col form-control ps-4" placeholder="ค้นหาพนักงาน" style="border-radius: 0px 0px 0 0px !important;"
+                                           type="text" id="searchText">
+                                    <button class="col-3 btn btn-search p-2"
+                                            style="border-radius: 0px 15px 15px 0px !important;" type="button" onclick="searchItem()"><i
+                                            class="bi bi-search"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <!--<div class="row align-items-center">
-                        <div class="header">
-                            <h1>ตรวจสอบคำร้องออนไลน์</h1>
-                        </div>
-                    </div>-->
-
-                    <!--<div class="row-nav row grey">
-                        <ul class="nav nav-fill">
-                            <li class="nav-item">
-                                <a class="nav-link" href="statusPageTableAddDrop.html">เพิ่ม-ถอน</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="statusPageTableDropW.html">ถอน W</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    style="background-color: rgba(255, 209, 63, 0.60); ; border-radius: 10px;">เพิ่มข้ามโครงการ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="statusPageTableDropOut.html">ลาออก</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="statusPageTableOther.html">อื่นๆ</a>
-                            </li>
-                        </ul>
-                    </div>-->
-
-                    <div class="row-nav row brown py-3">
-                        <h5>รายการพัสดุ</h5>
+                    <div class="row-nav row brown py-0 rounded-top-3 px-0 text-center justify-content-center">
+                        <div class="col col-2 py-3"><h5></h5></div>
+                        <div class="col col-6 py-3 text-center"><h5>รายการพนักงาน</h5></div>
+                        <div class="col col-2 py-3"><h5></h5></div>
+                        <button class="btn col-1 my-2" style="background-color: rgba(204, 213, 174, 1) !important;" onclick="location.href = 'addEmp.html'">เพิ่ม</button>
                     </div>
-
-
                     <div class="container-flex">
-                        <div class="row row-col-2 grey pt-3 px-2">
-                            <div class="col pb-3">
-                                <div class="card">
-                                    <img src="..." class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col pb-3">
-                                <div class="card">
-                                    <img src="..." class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col pb-3">
-                                <div class="card">
-                                    <img src="..." class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col pb-3">
-                                <div class="card">
-                                    <img src="..." class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col pb-3">
-                                <div class="card">
-                                    <img src="..." class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="row row-col-2 grey pt-3 px-2" id="emp-list">
 
                         </div>
                     </div>
-
-                   <!-- <div class="row-table row text-center align-items-center">
-                        <table class="table table-hover table table-bordered recap-table">
-                            <thead class="table">
-                                <tr>
-                                    <th scope="col">วันที่</th>
-                                    <th scope="col">สถานะ</th>
-                                    <th scope="col">รายละเอียด</th>
-                                    <th scope="col">ยกเลิกคำร้อง</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>-->
                 </div>
             </div>
         </div>
     </div>
 </body>
-<!--<script>
-    window.onload = fetchAddDrop(sessionStorage.getItem("username"));
-    console.log(sessionStorage.getItem("username"));
+<script>
+    window.onload = fetchAllEmployee();
 
-    function fetchAddDrop(id) {
-
-        fetch("/users/getRegCrossDataById?id=" + id)
+    function fetchAllEmployee() {
+        fetch("/employee/fetchAllEmployee")
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                for (let entry in data) {
-                    console.log(data[entry]["date"]);
-                    var addTable = document.querySelector(".recap-table tbody");
-                    var newRow = document.createElement("tr");
-                    var cell = document.createElement("td");
-                    cell.innerHTML = data[entry]["date"];
-                    newRow.appendChild(cell);
-                    cell = document.createElement("td")
-                    cell.innerHTML = (data[entry]["status"] == null) ? "กำลังรอดำเนินการ" : data[entry]["status"];
-                    newRow.appendChild(cell);
-                    addTable.appendChild(newRow);
-                    cell = document.createElement("td")
-                    cell.id = "addTableDesc" + entry;
-                    cell.innerHTML = `<a href="#" data-bs-toggle="modal"
-                                            data-bs-target="#staticBackdrop`+ entry + `">ดูรายละเอียด</a>
-                                        <div class="modal modal-xl fade" id="staticBackdrop`+ entry + `" data-bs-keyboard="false"
-                                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-scrollable">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                            รายละเอียดคำร้อง</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
+                console.log(data.length);
+                var lists = document.getElementById("emp-list");
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i]["empRole"] == "AssetManager") {
+                        continue;
+                    }
+                    var card = document.createElement("div");
+
+                    card.classList.add("col");
+                    card.classList.add("pb-3");
+                    var empID                 = data[i]["empID"];
+                    var empName               = data[i]["fname"] + " " + data[i]["mname"] + " " +data[i]["lname"];
+                    var empRole               = data[i]["empRole"];
+                    var empDept               = sessionStorage.getItem("depName");
+                    var empBDate              = data[i]["empBDate"];
+                    var empMail               = data[i]["empMail"];
+                    var empTel                = data[i]["empTel"];
+                    var empAddress            = data[i]["houseNo"] + " " + data[i]["road"] + " " + data[i]["subDistrict"] + " " + data[i]["district"] + " " + data[i]["province"] + " " +data[i]["country"] + " " + data[i]["postcode"]
+
+
+                    var hexString = data[i]["empPhoto"];
+                    var base64String = btoa(hexString.match(/\w{2}/g).map(function(a){
+                        return String.fromCharCode(parseInt(a, 16));
+                    }).join(""));
+
+                    card.innerHTML = `  <div class="card">
+                                            <img src="data:image/png;base64, ` + base64String + `" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title">` + empName.toUpperCase() + `</h5>
+                                                <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#E` + empID + `">
+                                                  รายละเอียด
+                                                </button>
+                                                <div class="modal fade" id="E`+ empID + `" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                      <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">` + empName.toUpperCase() + `</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                        <img src="data:image/png;base64, ` + base64String + `" class="card-img-top" alt="...">
+                                                         <p style="font-size: 20px;">
+                                                         รหัสพนักงาน: ` + empID + ` <br>
+                                                         ชื่อพนักงาน: ` + empName + ` <br>
+                                                         ตำแหน่ง: ` + empRole + ` <br>
+                                                         วันเกิด: ` + empBDate + ` <br>
+                                                         ที่อยู่: ` + empAddress + ` <br>
+                                                         อีเมล: ` + empMail + ` <br>
+                                                         เบอร์โทรศัพท์: ` + empTel + ` <br>
+                                                         </p>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                        <button type="button" onclick="editEmpInfo(`+ empID +`)" class="btn btn-primary">แก้ไขรายละเอียด</button>
+                                                      </div>
                                                     </div>
-                                                    <div id="modal-body` + entry + `" class="modal-body">
-                                                        <p>
-                                                            วันที่: <span id="date` + entry + `"></span><br>
-                                                            คำนำหน้านาม: <span id="prefix` + entry + `"></span><br>
-                                                            ชื่อ: <span id="firstName` + entry + `"></span><br>
-                                                            นามสกุล: <span id="lastname` + entry + `"></span><br>
-                                                            รหัสนักศึกษา: <span id="studentId` + entry + `"></span><br>
-                                                            ชั้นปีที่: <span id="studentYear` + entry + `"></span><br>
-                                                            สาขาวิชา: <span id="studentField` + entry + `"></span><br>
-                                                            อาจารย์ที่ปรึกษา: <span id="advisor` + entry + `"></span><br>
-                                                            ที่อยู่ที่สามารถติดต่อได้: <span id="addressNumber` + entry + `"></span>
-                                                            <span id="moo` + entry + `"></span> 
-                                                            <span id="tumbol` + entry + `"></span> 
-                                                            <span id="amphur` + entry + `"></span> 
-                                                            <span id="province` + entry + `"></span> 
-                                                            <span id="postalCode` + entry + `"></span><br>
-                                                            โทรศัพท์มือถือ: <span id="mobilePhone` + entry + `"></span><br>
-                                                            โทรศัพท์: <span id="phone` + entry + `"></span><br>
-                                                            ชื่อวิชาที่ต้องการลงทะเบียน: <span id="reg` + entry + `"></span><br>
-                                                            รหัสวิชา: <span id="code` + entry + `"></span><br>
-                                                            Section: <span id="section` + entry + `"></span><br>
-                                                            เทอม: <span id="semester` + entry + `"></span><br>
-                                                            ปีการศึกษา: <span id="year` + entry + `"></span><br>
-                                                            อาจารย์ประจำวิชา: <span id="teacher` + entry + `"></span><br>
-                                                            เหตุผล: <span id="reason` + entry + `"></span><br>
-                                                        </p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                    </div>
+                                                  </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        `;
-                    newRow.appendChild(cell);
-                    addTable.appendChild(newRow);
-                    document.querySelector("#date" + entry).innerHTML = data[entry]["date"];
-                    document.querySelector("#prefix" + entry).innerHTML = data[entry]["prefix"];
-                    document.querySelector("#firstName" + entry).innerHTML = data[entry]["firstName"];
-                    document.querySelector("#lastname" + entry).innerHTML = data[entry]["lastname"];
-                    document.querySelector("#studentId" + entry).innerHTML = data[entry]["studentId"];
-                    document.querySelector("#studentField" + entry).innerHTML = data[entry]["studentField"];
-                    document.querySelector("#studentYear" + entry).innerHTML = data[entry]["studentYear"];
-                    document.querySelector("#advisor" + entry).innerHTML = data[entry]["advisor"];
-                    document.querySelector("#addressNumber" + entry).innerHTML = data[entry]["addressNumber"];
-                    document.querySelector("#moo" + entry).innerHTML = data[entry]["moo"];
-                    document.querySelector("#tumbol" + entry).innerHTML = data[entry]["tumbol"];
-                    document.querySelector("#amphur" + entry).innerHTML = data[entry]["amphur"];
-                    document.querySelector("#province" + entry).innerHTML = data[entry]["province"];
-                    document.querySelector("#mobilePhone" + entry).innerHTML = data[entry]["mobilePhone"];
-                    document.querySelector("#phone" + entry).innerHTML = data[entry]["phone"];
-                    document.querySelector("#reg" + entry).innerHTML = data[entry]["reg"];
-                    document.querySelector("#code" + entry).innerHTML = data[entry]["code"];
-                    document.querySelector("#section" + entry).innerHTML = data[entry]["section"];
-                    document.querySelector("#semester" + entry).innerHTML = data[entry]["semester"];
-                    document.querySelector("#year" + entry).innerHTML = data[entry]["year"];
-                    document.querySelector("#teacher" + entry).innerHTML = data[entry]["teacher"];
-                    document.querySelector("#reason" + entry).innerHTML = data[entry]["reason"];
-                    cell = document.createElement("td");
-                    cell.innerHTML = `<td style="color: red !important;">ยกเลิก</td>`;
-                    newRow.appendChild(cell);
-                    addTable.appendChild(newRow);
+                                        </div>`;
+                    lists.appendChild(card);
                 }
             })
             .catch(error => {
                 console.log(error);
             });
     }
-</script>-->
+    function editEmpInfo(empID) {
+        sessionStorage.setItem("editEmpID", empID);
+        window.location = "reinf_assetmanager.html";
+    }
+    window.addEventListener("load", (event) => {
+        var pageTitle = document.getElementById("pageTitle")
+        pageTitle.innerHTML = document.title;
+    });
+
+    function searchItem() {
+        document.getElementById("emp-list").innerHTML = "";
+        console.log("/employee/fetchEmpBy" + document.getElementById("inputGroupSelect02").value + "?emp" + document.getElementById("inputGroupSelect02").value + "=" + document.getElementById("searchText").value);
+        fetch("/employee/fetchEmpBy" + document.getElementById("inputGroupSelect02").value + "?emp" + document.getElementById("inputGroupSelect02").value + "=" + document.getElementById("searchText").value)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                console.log(data.length);
+                var lists = document.getElementById("emp-list");
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i]["empRole"] == "AssetManager") {
+                        continue;
+                    }
+                    var card = document.createElement("div");
+
+                    card.classList.add("col");
+                    card.classList.add("pb-3");
+                    var empID                 = data[i]["empID"];
+                    var empName               = data[i]["fname"] + " " + data[i]["mname"] + " " +data[i]["lname"];
+                    var empRole               = data[i]["empRole"];
+                    var empDept               = sessionStorage.getItem("depName");
+                    var empBDate              = data[i]["empBDate"];
+                    var empMail               = data[i]["empMail"];
+                    var empTel                = data[i]["empTel"];
+                    var empAddress            = data[i]["houseNo"] + " " + data[i]["road"] + " " + data[i]["subDistrict"] + " " + data[i]["district"] + " " + data[i]["province"] + " " +data[i]["country"] + " " + data[i]["postcode"]
+
+
+                    var hexString = data[i]["empPhoto"];
+                    var base64String = btoa(hexString.match(/\w{2}/g).map(function(a){
+                        return String.fromCharCode(parseInt(a, 16));
+                    }).join(""));
+
+                    card.innerHTML = `  <div class="card">
+                                            <img src="data:image/png;base64, ` + base64String + `" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title">` + empName.toUpperCase() + `</h5>
+                                                <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#E` + empID + `">
+                                                  รายละเอียด
+                                                </button>
+                                                <div class="modal fade" id="E`+ empID + `" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                      <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">` + empName.toUpperCase() + `</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                        <img src="data:image/png;base64, ` + base64String + `" class="card-img-top" alt="...">
+                                                         <p style="font-size: 20px;">
+                                                         รหัสพนักงาน: ` + empID + ` <br>
+                                                         ชื่อพนักงาน: ` + empName + ` <br>
+                                                         ตำแหน่ง: ` + empRole + ` <br>
+                                                         วันเกิด: ` + empBDate + ` <br>
+                                                         ที่อยู่: ` + empAddress + ` <br>
+                                                         อีเมล: ` + empMail + ` <br>
+                                                         เบอร์โทรศัพท์: ` + empTel + ` <br>
+                                                         </p>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                        <button type="button" onclick="editEmpInfo(`+ empID +`)" class="btn btn-primary">แก้ไขรายละเอียด</button>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                    lists.appendChild(card);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+</script>
 
 </html>
