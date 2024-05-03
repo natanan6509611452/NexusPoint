@@ -98,10 +98,10 @@
                                             <img src="data:image/png;base64, ` + base64String + `" class="card-img-top" alt="...">
                                             <div class="card-body">
                                                 <h5 class="card-title">` + empName.toUpperCase() + `</h5>
-                                                <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#E` + empID + `">
+                                                <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#E` + empID.replace(/\s/g, "") + `">
                                                   รายละเอียด
                                                 </button>
-                                                <div class="modal fade" id="E`+ empID + `" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="E`+ empID.replace(/\s/g, "") + `" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                   <div class="modal-dialog">
                                                     <div class="modal-content">
                                                       <div class="modal-header">
